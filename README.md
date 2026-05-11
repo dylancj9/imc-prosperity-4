@@ -656,14 +656,18 @@ Ironically, several strategies we suspected were slightly overfit still ended up
 
 The first manual round involved auction optimization.
 
-The key realization:
-> you pay the clearing price, not your bid.
 
-This meant:
-- bidding extremely high improved queue position,
-- while not necessarily increasing cost.
+**Key insight:** You pay the *clearing price*, not your bid. Bid price only sets queue position. Quantity controls whether your bid pushes the clearing price up via the higher-price tie-break rule.
 
-We built a custom auction simulator and grid searched the optimal bids.
+**Method:** For each (bid_price, qty) candidate, simulate the auction: build the volume curve (demand≥P vs supply≤P at every level), pick the price with max traded volume (ties → higher price), then allocate by price→time priority. Profit = fill × (buyback − clearing − fee). Grid-search over all integer prices ≤ buyback, with fine sweep around analytically-derived clearing-transition thresholds.
+
+**FLAX → BID 9,999 @ 30 → profit 9,999**
+Without your order, clearing = 28 (40k traded). Adding 9,999 demand at p=30 makes p=29 also tie at 40k → clearing = 29 (margin 1). At 10,000, p=30 also ties → clearing jumps to 30, profit = 0.
+
+**EMBER → BID 19,999 @ 20 → profit 77,996.10**
+Baseline clears at 15 (86k traded). Adding 19,999 demand pushes p=16 to 91k traded → clearing = 16 (margin 3.90). At 20,000, p=17 also hits 91k → clearing jumps to 17, profit collapses.
+
+**Total: 87,995**
 
 This ended up topping the leaderboard.
 
