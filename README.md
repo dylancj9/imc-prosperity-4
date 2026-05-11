@@ -1,24 +1,34 @@
 # Une Baguette Fromage 🥖🧀
 
-This writeup shares the strategies, infrastructure, insights, and research process that brought us to … place globally in IMC Prosperity 4 (2026). Competing against more than 22,000 teams worldwide, we achieved a final score of … XIRECS.
+This writeup shares the strategies, infrastructure, insights, and research process that brought us to 4th place globally and 1st place in Europe in IMC Prosperity 4 (2026). Competing against 18.803 teams worldwide, we achieved a final score of 1,386,318 XIRECS.
 
-<table width="50%">
+<table width="80%">
   <tbody>
     <tr>
       <td align="center" valign="top" width="200px">
           <img src="IMAGE_URL" width="150;" alt="Member"/>
           <br />
-          <p><b>NAME</b></p>
+          <p><b>Jasper van der Ende</b></p>
       </td>
       <td align="center" valign="top" width="200px">
           <img src="IMAGE_URL" width="150;" alt="Member"/>
           <br />
-          <p><b>NAME</b></p>
+          <p><b>Teun Schuur</b></p>
+      </td>
+      <td align="center" valign="top" width="200px">
+          <img src="https://media.licdn.com/dms/image/v2/D4E03AQHLffcFLPo9Mg/profile-displayphoto-scale_400_400/B4EZmBF4BPIUAo-/0/1758807426039?e=1779926400&v=beta&t=vJs0WG6DC95fBsGdLsy_G4nJQd5VG19gFUiRk1963dw" width="150;" alt="Member"/>
+          <br />
+          <p><b>Thomas St Ges</b></p>
       </td>
       <td align="center" valign="top" width="200px">
           <img src="IMAGE_URL" width="150;" alt="Member"/>
           <br />
-          <p><b>NAME</b></p>
+          <p><b>Guilhem Doat</b></p>
+      </td>
+      <td align="center" valign="top" width="200px">
+          <img src="IMAGE_URL" width="150;" alt="Member"/>
+          <br />
+          <p><b>Dylan Conrad</b></p>
       </td>
     </tr>
   </tbody>
