@@ -6,12 +6,12 @@ This writeup shares the strategies, infrastructure, insights, and research proce
   <tbody>
     <tr>
       <td align="center" valign="top" width="200px">
-          <img src="IMAGE_URL" width="150;" alt="Member"/>
+          <img src="https://media.licdn.com/dms/image/v2/D4D03AQEvZtqmWS4Ayw/profile-displayphoto-scale_400_400/B4DZlAHehLJUAg-/0/1757717326710?e=1779926400&v=beta&t=cpMRrQrCbMzoEjftBtRdUAV6W7KU8IY-Y0t8KdbJNGw" width="150;" alt="Member"/>
           <br />
           <p><b>Jasper van der Ende</b></p>
       </td>
       <td align="center" valign="top" width="200px">
-          <img src="IMAGE_URL" width="150;" alt="Member"/>
+          <img src="https://media.licdn.com/dms/image/v2/D4D03AQGBA1y9hLNDNw/profile-displayphoto-scale_400_400/B4DZ1qSih7GUAg-/0/1775604744014?e=1779926400&v=beta&t=1aU1N7w7XNwdf2e-7f13HhT8Mhqu2ljbEAM2x2p1bwg" width="150;" alt="Member"/>
           <br />
           <p><b>Teun Schuur</b></p>
       </td>
@@ -21,12 +21,12 @@ This writeup shares the strategies, infrastructure, insights, and research proce
           <p><b>Thomas St Ges</b></p>
       </td>
       <td align="center" valign="top" width="200px">
-          <img src="IMAGE_URL" width="150;" alt="Member"/>
+          <img src="https://media.licdn.com/dms/image/v2/D4D03AQHOkN4WqXVMkA/profile-displayphoto-shrink_400_400/B4DZWgAe2QGkAg-/0/1742146236331?e=1779926400&v=beta&t=SWSTkpveg75vrcadbhZNWjZkH6lbHYYlry06tUYRe4o" width="150;" alt="Member"/>
           <br />
           <p><b>Guilhem Doat</b></p>
       </td>
       <td align="center" valign="top" width="200px">
-          <img src="IMAGE_URL" width="150;" alt="Member"/>
+          <img src="https://media.licdn.com/dms/image/v2/D4E03AQHsPSymykl1-A/profile-displayphoto-scale_400_400/B4EZ2shB5bKEAk-/0/1776715833813?e=1779926400&v=beta&t=gbDDhrzElkxz3JTgXKTmglzyaQN9OVV89ggpWRAuyCo" width="150;" alt="Member"/>
           <br />
           <p><b>Dylan Conrad</b></p>
       </td>
