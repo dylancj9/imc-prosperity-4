@@ -675,22 +675,50 @@ This ended up topping the leaderboard.
 
 ## Round 2
 
-Round 2 involved:
-- research allocation,
-- scale allocation,
-- and speed allocation.
+# Invest & Expand — Optimal Strategy
 
-The interesting part:
-- speed depended on what other teams selected.
+**The challenge:**
 
-We actually used:
-- OpenAI,
-- Anthropic,
-- and repeated prompting
+You are expanding your outpost into a true market making firm with a budget of `50 000` XIRECs. You need to allocate this budget across three pillars:
 
-to estimate the likely distribution of participant allocations.
+- **Research**
+- **Scale**
+- **Speed**
 
-This surprisingly worked very well.
+You choose percentages for each pillar between 0–100%. Total allocation cannot exceed 100%. Your final PnL (Profit and Loss) score is:
+
+<aside>
+ℹ️
+
+PnL = (Research × Scale × Speed) − Budget_Used
+
+</aside>
+
+### **The pillars**
+
+**Research** determines how strong your trading edge is. It grows **logarithmically** from `0` (for `0` invested) to `200 000`  (for `100` invested). The exact formula is `research(x) = 200_000 * np.log(1 + x) / np.log(1 + 100)`. Here, `np.log` is a python function from NumPy package for natural logarithm.
+
+**Scale** determines how broadly you deploy your strategy across markets. It grows **linearly** from `0` (for `0` invested) to `7` (for `100` invested).
+
+**Speed** determines how often you win the trades you target. It is **rank-based** across all players:
+
+- Highest speed investment receives a `0.9` multiplier.
+- Lowest receives `0.1`.
+- Everyone in between is scaled linearly by rank, equal investments share the same rank.
+
+**Our strategy**
+
+The crux of this challenge is of course the game theory problem of estimating the distribution of speed allocations among all the teams. This dictates our own choice of speed allocation, and from this we can compute the allocations for research and scale that maximize PnL.
+
+Our strategy to approaximate the speed distribution is based on a simple assumption: a large number of teams will base their allocation on the recommendations of their favourite LLM. Therefore, by using these companies' APIs, we can query these models a large number of times to gauge what their take on this challenge is. 
+
+In practice, what we did is use the information above as a seed prompt, and asked Claude to write 6 prompts based on it, mimicking different player prototype. Then, we called prompted a number of different models using those, and compiled the results in a .csv file.
+
+![Speed allocation distribution](Figures/speed_distribution.png)
+![GPT 5.4 dist](Figures/dist_5_4.png)
+
+Using this, and our in-house optimizer, we settled on 15 for research, 43 for scale, 42 for speed
+
 
 <br/>
 
