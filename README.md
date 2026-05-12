@@ -669,7 +669,8 @@ Baseline clears at 15 (86k traded). Adding 19,999 demand pushes p=16 to 91k trad
 
 **Total: 87,995**
 
-This ended up topping the leaderboard.
+This ended up topping the leaderboard, with the actual distribution being:
+![Actual distribution](Figures/actual_dist_round_1.jpg)
 
 <br/>
 
