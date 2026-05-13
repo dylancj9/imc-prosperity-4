@@ -6,27 +6,27 @@ This writeup shares the strategies, infrastructure, insights, and research proce
   <tbody>
     <tr>
       <td align="center" valign="top" width="200px">
-          <img src="Figures/Jasper_pfp.jpeg" width="150;" alt="Member"/>
+          <img src="Figures/Jasper_pfp.jpg" width="150;" alt="Member"/>
           <br />
           <p><b>Jasper van der Ende</b></p>
       </td>
       <td align="center" valign="top" width="200px">
-          <img src="Figures/Teun_pfp.jpeg" width="150;" alt="Member"/>
+          <img src="Figures/Teun_pfp.jpg" width="150;" alt="Member"/>
           <br />
           <p><b>Teun Schuur</b></p>
       </td>
       <td align="center" valign="top" width="200px">
-          <img src="Figures/Thomas_pfp.jpeg" width="150;" alt="Member"/>
+          <img src="Figures/Thomas_pfp.jpg" width="150;" alt="Member"/>
           <br />
           <p><b>Thomas St Ges</b></p>
       </td>
       <td align="center" valign="top" width="200px">
-          <img src="Figures/Dylan_pfp.jpeg" width="150;" alt="Member"/>
+          <img src="Figures/Dylan_pfp.jpg" width="150;" alt="Member"/>
           <br />
           <p><b>Guilhem Doat</b></p>
       </td>
       <td align="center" valign="top" width="200px">
-          <img src="Figures/Dylan_pfp.jpeg" width="150;" alt="Member"/>
+          <img src="Figures/Dylan_pfp.jpg" width="150;" alt="Member"/>
           <br />
           <p><b>Dylan Conrad</b></p>
       </td>
