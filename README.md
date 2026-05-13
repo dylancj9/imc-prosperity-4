@@ -427,7 +427,7 @@ Unlike OSMIUM, it increased almost deterministically by 0.1 every tick.
 
 <tr valign="top">
 <td width="100%" align="center">
-  <img src="Figures/intarian-pepper-root-market"
+  <img src="Figures/intarian-pepper-root-market.png"
        alt="PEPPER_ROOT"
        width="100%" />
 </td>
