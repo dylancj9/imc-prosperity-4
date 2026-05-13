@@ -82,6 +82,11 @@ Each round also featured a separate manual challenge involving probabilistic rea
   - [Round 4](#round-4)
   - [Round 5](#round-5)
 - [Manual Challenge](#manual-challenge)
+  - [Round 1](#manual-round-1)
+  - [Round 2](#manual-round-2)
+  - [Round 3](#manual-round-3)
+  - [Round 4](#manual-round-4)
+  - [Round 5](#manual-round-5)
 - [FAQ](#faq)
 
 <br/>
@@ -878,62 +883,264 @@ Still, we remained highly cautious with ML throughout the competition.
 
 ## Round 5
 
-Round 5 completely changed the scale of the competition.
+What made Round 5 incredibly complex was not necessarily the trading itself, but figuring out what actually mattered inside an absurdly large search space.
 
-The jump to 50 assets massively expanded the research search space.
+The surprise jump to 50 assets completely changed the way we approached research.
 
-Initially, we built:
-- giant correlation matrices,
-- residual scanners,
+Previous rounds naturally pushed teams toward understanding a handful of products deeply.
+
+Round 5 instead tempted everyone into building giant correlation matrices and searching for structure everywhere at once.
+
+Initially, we did too.
+
+We spent a large part of the first day building scanners and validators for:
+- cross-family correlations,
+- basket residuals,
+- rolling z-score deviations,
 - cointegration tests,
-- lead-lag systems,
-- imbalance signals,
-- and family-wide relationship models.
+- lead-lag relationships,
+- and microstructure imbalance signals.
 
-At first, it looked like we found unlimited alpha.
+And to be honest, at first it looked like we had found basically unlimited alpha.
 
-Everything seemed beautifully connected.
+Entire families appeared tightly linked.
+Baskets showed extreme mean reversion.
+Products seemed to predict each other with almost suspicious precision.
+Dozens of plots looked beautiful, and many strategies produced extremely strong in-sample backtests.
 
-Residuals looked perfect.
-Backtests exploded upward.
-Entire families appeared predictable.
+That made us more skeptical rather than less.
 
-This only made us extremely skeptical.
+Our biggest risk at that point was convincing ourselves that the market was far more structured than it really was.
 
-### Out-of-Sample Collapse
-
-We then performed proper out-of-sample testing:
+So we forced proper out-of-sample validation:
 - fit on two days,
-- validate on the third.
+- test on the third.
 
-The result was catastrophic.
+The result was a disaster.
 
-Relationships immediately collapsed:
-- hedge ratios inverted,
+Relationships that looked statistically convincing immediately collapsed:
 - residuals became non-stationary,
-- correlations vanished,
-- and most strategies disintegrated.
+- hedge ratios changed sign,
+- correlations weakened or inverted,
+- and most cross-family pairs that had looked like statistical candy turned into rotten fruit instantly.
 
-This was one of the most important lessons of the competition.
+We think this is also why there were so many misleading "huge alpha" claims in Discord.
 
-If you searched hard enough, you could absolutely find absurdly profitable backtests.
+If you searched hard enough, it really was possible to find absurdly profitable backtests.
 
-The hard part was finding relationships that survived reality.
+The hard part was finding relationships that actually survived out-of-sample.
+
+### What Survived
+
+In the end, the live strategy was much simpler than our research notebook graveyard suggested.
+
+The backbone was broad market making.
+
+Just making markets across many assets was already highly profitable, especially because much of the taker flow was effectively shared across products.
+
+If we got filled, we often got filled in many assets at once, which reduced effective exposure at the portfolio level because the large basket of products was much less volatile than any single name.
+
+For most products, that meant simply quoting aggressively inside the spread.
+
+For a couple of families such as TRANSLATORS and GALAXY_SOUNDS, we used a slightly better Wall-Mid-style market maker with inventory skew.
+
+On top of that baseline, only a few alpha layers survived the cut.
+
+The family-level PnL attribution after the round reinforced that story.
+
+The clearest winners were:
+- OXYGEN_SHAKES at about +669k (Wow!)
+- PEBBLES at about +22.4k
+- SNACKPACKS at about +19.1k
+- TRANSLATORS at about +11.7k
+- PANELS at about +9.3k
+- GALAXY_SOUNDS at about +5.5k
+
+Those were mostly families where either broad market making alone was already strong, or where the extra structure we kept live was at least directionally helpful.
+
+In particular, OXYGEN_SHAKES were actually our main PnL source, which is important context for the microstructure alpha discussed below.
+
+The weak spots were just as informative:
+- MICROCHIPS lost about 26.8k,
+- SLEEP_PODS lost about 14.0k,
+- UV_VISORS lost about 7.0k,
+- and ROBOTS lost about 4.3k.
+
+So even though some of those families had research ideas we found statistically interesting, live attribution made it clear that not all of them translated into robust production alpha.
+
+### Residual Baskets
+
+Most of the grand cross-family structure was thrown out.
+
+Only a handful of residual baskets were robust enough to keep live.
+
+The final submission traded mean reversion on a small set of family combinations:
+- MICROCHIPS,
+- SLEEP_PODS,
+- SNACKPACKS,
+- and one DOMESTIC_ROBOTS basket.
+
+These were implemented as weighted basket residuals with fixed mean and volatility thresholds, plus a killswitch for extreme dislocations.
+
+This was a much narrower version of our original vision for the round.
+
+The live attribution was mixed.
+
+Some families clearly did not justify the complexity:
+- MICROCHIPS finished deeply negative,
+- and SLEEP_PODS also lost meaningfully.
+
+That is exactly the kind of result we had been worried about when so many residual relationships collapsed out-of-sample.
+
+SNACKPACKS were more nuanced.
+
+The return structure there was genuinely interesting:
+- VANILLA and CHOCOLATE were about -0.92 correlated,
+- RASPBERRY and STRAWBERRY were negatively correlated with each other,
+- and the RASPBERRY-plus-STRAWBERRY basket showed structure against PISTACHIO.
+
+<table>
+<tr valign="top">
+<td width="100%" align="center">
+  <strong>Figure 8: SNACKPACK Correlation Structure</strong>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <img src="Figures/snackpack_correlation.png"
+       alt="SNACKPACK Correlation"
+       width="100%" />
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <img src="Figures/hierarchical_clustering_snackpacks.png"
+       alt="SNACKPACK Hierarchical structure"
+       width="100%" />
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <em>Correlation structure inside the SNACKPACK family.</em>
+</td>
+</tr>
+</table>
+
+We did try basket trading and arbitrage around this.
+
+However, it did not end up being nearly as profitable as the cleanest live structures.
+
+So although SNACKPACKS still finished strongly positive at about +19.1k, that was more a validation of the simpler final structure than of an elaborate family-arbitrage thesis.
+
+### DaFuck Alpha
+
+The cleanest standalone microstructure signal was what we internally called the **DaFuck alpha**.
+
+<table>
+<tr valign="top">
+<td width="100%" align="center">
+  <strong>Figure 9: DaFuck Alpha</strong>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <img src="Figures/DaFuck_alpha.png"
+       alt="DaFuck Alpha"
+       width="100%" />
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <em>Example of the short-horizon jump-and-revert behavior we exploited in Round 5.</em>
+</td>
+</tr>
+</table>
+
+This pattern appeared on random products at random times, but in our live results the clearest and most important manifestation was OXYGEN_SHAKE_CHOCOLATE.
+
+What happened was that price would jump to the nearest round 100 level, such as 10.3k or 10.4k, and once it jumped there, the probability of quickly jumping back was far above 50%.
+
+So in practice it behaved like a very short-horizon mean reversion signal.
+
+The implementation was correspondingly simple:
+- detect a sufficiently large jump after a few stable ticks,
+- assume the move is likely to revert,
+- and immediately take liquidity on the opposite side.
+
+This was one of the easiest real alphas to identify and monetize.
+
+In hindsight, this also explains why OXYGEN_SHAKES ended up as our biggest winning family.
+
+By contrast, ROBOTS still finished slightly negative overall at about -4.3k, so although the same effect did show up there in the historical data, it was not the main source of realized PnL.
+
+### UV_VISORS
+
+Our initial lead-lag research produced a lot of false positives, so by late Round 5 we were already suspicious of almost every such result.
+
+Then, in the final hours, we found one lead-lag structure in UV_VISORS that actually looked real.
+
+The effect itself was modest: certain visor products appeared to turn, and roughly half a day later another visor product tended to follow,
+
+That was not the kind of signal you build a huge standalone strategy around with 90 minutes left.
+
+So we implemented the smallest thing that could plausibly monetize it: a regime overlay.
+It either added or subtracted 1 tick from fair value on a couple of specific leader-lagger pairs.
+
+This caused a lot of stress because it was found very late, but it did make it into the final bot.
+
+The final attribution there was mildly negative, with UV_VISORS ending around -7.0k.
+
+So we still think the structure was real, but the live implementation was too small and too late to become a major source of PnL.
+
+### PEBBLES
+
+PEBBLES turned out not to be one magical alpha with a clean verbal explanation.
+
+Looking at our final submission, the live PEBBLES strategy was really a synthetic family-pricing model with a few extra lagged signals layered on top.
+
+The core fair value assumption was that the five PEBBLES products approximately summed to a stable anchor around 50,000.
+
+So for any one product, we priced it synthetically as:
+- 50,000
+- minus the observed prices of the other four sizes.
+
+That gave a synthetic fair value for each pebble size, after which we:
+- applied inventory skew,
+- quoted around that reservation price,
+- and took liquidity when the observed market was sufficiently far away.
+
+On top of that, we added a few cross-size lag rules, for example:
+- PEBBLES_XS reacting to prior moves in PEBBLES_XL and PEBBLES_L,
+- PEBBLES_S reacting to prior moves in PEBBLES_M and PEBBLES_XS,
+- and PEBBLES_XL reacting to prior moves in PEBBLES_L.
+
+Some pebble sizes were therefore mostly plain synthetic market making, while others had a directional regime overlay from those lagged triggers.
+
+So the for the final note:
+> the PEBBLES alpha in our final bot was a synthetic basket fair-value model with a small amount of hand-tuned intra-family lead-lag logic, not one single elegant standalone edge.
+
+Attribution supports that interpretation quite well: PEBBLES ended up as our strongest Round 5 family at about +22.4k.
 
 ### Final Strategy Philosophy
 
 In the end:
 - we discarded most cross-family complexity,
 - kept only the most robust relationships,
-- and prioritized simplicity heavily.
+- relied heavily on broad market making,
+- and layered only a small number of specific alphas on top.
 
-Ironically, several strategies we suspected were slightly overfit still ended up live because:
-> at some point, you just have to decide and submit something.
+Ironically, a few components we still suspected might be slightly overfit ended up live anyway, simply because at some point you have to stop researching and submit.
 
 <br/>
 
 # Manual Challenge
 
+<a id="manual-round-1"></a>
 ## Round 1
 
 The first manual round involved auction optimization.
@@ -956,6 +1163,7 @@ This ended up topping the leaderboard, with the actual distribution being:
 
 <br/>
 
+<a id="manual-round-2"></a>
 ## Round 2
 
 # Invest & Expand — Optimal Strategy
@@ -1005,6 +1213,7 @@ Using this, and our in-house optimizer, we settled on 15 for research, 43 for sc
 
 <br/>
 
+<a id="manual-round-3"></a>
 ## Round 3
 
 Round 3 involved reserve-price optimization.
@@ -1018,6 +1227,7 @@ We reused methods from previous manual rounds to estimate participant distributi
 
 <br/>
 
+<a id="manual-round-4"></a>
 ## Round 4
 
 Round 4 manual introduced:
@@ -1042,6 +1252,7 @@ We therefore optimized:
 
 <br/>
 
+<a id="manual-round-5"></a>
 ## Round 5
 
 Round 5 manual was news trading.
@@ -1132,4 +1343,5 @@ We hope this writeup helps future participants:
 
 Good luck next year :)
 
+P.S. if you have any other questions, you can always dm us on linkedIn!
 <br/>
