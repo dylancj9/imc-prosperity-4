@@ -532,7 +532,7 @@ The obvious answer became:
 
 Fun fact: we initially wanted to bid negative infinity since we expected other rational participants to bid 0 or lower as well (we wanted to avoid more competition no matter what; and as an added bonus, if more than 50% of players thought like us and bid negative infinity, we could all win the game with infinite PnL). However after we inquired about this to the IMC Prosperity team, it was later publicly clarified that negative bids would default to 0.
 
-Nonetheless, as announced by the IMC Prosperity team after the round concluded, the median bid among all participants was still 50.
+Yet, as announced by the IMC Prosperity team after the round concluded, the median bid among all participants was 50.
 
 <br/>
 
