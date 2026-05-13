@@ -132,6 +132,12 @@ On top of the core backtester, we built a heavily customized dashboard environme
 
 <tr valign="top">
 <td width="100%" align="center">
+  <strong>Figure 2: Analyzer Overview</strong>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
   <img src="Figures/analysis_dashboard.png"
        alt="Analysis Dashboard"
        width="100%" />
@@ -253,13 +259,13 @@ This produced a significantly cleaner and more predictive estimate of fair value
 <table>
 <tr valign="top">
 <td width="100%" align="center">
-  <strong>Figure 2: Wall Mid vs Raw Mid</strong>
+  <strong>Figure 2: Wall Mid vs Raw Mid (Ash-Coated Osmium)</strong>
 </td>
 </tr>
 
 <tr valign="top">
 <td width="100%" align="center">
-  <img src="IMAGE_URL"
+  <img src="ash-coated-osmium-wallmid.png"
        alt="Wall Mid"
        width="100%" />
 </td>
@@ -337,7 +343,7 @@ After performing an Augmented Dickey-Fuller test, we confirmed the product was s
 
 <tr valign="top">
 <td width="100%" align="center">
-  <img src="IMAGE_URL"
+  <img src="ash-coated-osmium-market"
        alt="OSMIUM"
        width="100%" />
 </td>
@@ -390,6 +396,28 @@ PEPPER_ROOT behaved very differently.
 
 Unlike OSMIUM, it increased almost deterministically by approximately 0.1 per tick.
 
+<table>
+<tr valign="top">
+<td width="100%" align="center">
+  <strong>Figure 4: PEPPER_ROOT Orderbook</strong>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <img src="intarian-pepper-root-market"
+       alt="PEPPER_ROOT"
+       width="100%" />
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <em>Typical PEPPER_ROOT orderbook behavior.</em>
+</td>
+</tr>
+</table>
+
 The obvious strategy was simply:
 > buy and hold
 
@@ -436,8 +464,7 @@ The catch:
 
 This was an intentional red herring.
 
-Why would one pay for:
-> more competition against other market makers?
+Why would one pay for more competition against other market makers?
 
 The obvious answer became:
 > bid zero.
@@ -497,6 +524,28 @@ HYDROGEL_PACK behaved similarly to OSMIUM:
 
 The product was relatively straightforward compared to what came next.
 
+<table>
+<tr valign="top">
+<td width="100%" align="center">
+  <strong>Figure 5: HYDROGEL_PACK Orderbook</strong>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <img src="hydrogel-pack-market.png"
+       alt="HYDRO_GEL"
+       width="100%" />
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <em>Typical HYDROGEL_PACK orderbook behavior.</em>
+</td>
+</tr>
+</table>
+
 <br/>
 
 ### VELVETFRUIT_EXTRACT
@@ -507,6 +556,28 @@ A simple Avellaneda-Stoikov market maker no longer worked well due to:
 - tighter spreads,
 - larger jumps,
 - and higher short-term volatility.
+
+<table>
+<tr valign="top">
+<td width="100%" align="center">
+  <strong>Figure 6: VELVETFRUIT_EXTRACT Orderbook</strong>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <img src="velvetfruit-extract-market.png"
+       alt="VELVETFRUIT-EXTRACT"
+       width="100%" />
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <em>Typical VELVETFRUIT_EXTRACT orderbook behavior.</em>
+</td>
+</tr>
+</table>
 
 We instead modeled the product as an Ornstein-Uhlenbeck process.
 
@@ -540,13 +611,9 @@ However, analysis revealed:
 - per option,
 - throughout each day.
 
-This completely destroyed the standard:
-> fit parabola → trade IV mispricing
+This completely destroyed the standard 'fit parabola → trade IV mispricing' approach.
 
-approach.
-
-Instead, we concluded:
-> the options were essentially priced fairly.
+Instead, we concluded the options were essentially priced fairly.
 
 Therefore:
 - the options themselves contained little standalone alpha,
@@ -562,9 +629,9 @@ The resulting thresholds were computed through:
 
 ### Mark Analysis
 
-Round 4 introduced trader marks.
+Round 4 introduced trader Marks.
 
-Several marks quickly emerged as highly important:
+Several Marks quickly emerged as highly important:
 - Mark 14,
 - Mark 38,
 - Mark 55,
@@ -574,27 +641,21 @@ Several marks quickly emerged as highly important:
 One relationship dominated the round:
 > Mark 14 versus Mark 38.
 
-Approximately:
-- 60% of HYDROGEL flow
-- came from this interaction.
+Approximately 60% of HYDROGEL flow came from this interaction.
 
 #### Machine Learning Experiments
 
 We performed significant ML research during this round.
 
-Most generalized:
-- Mark-conditioned path-max strategies
-
-looked incredible offline.
+Most generalized Mark-conditioned path-max strategies looked incredible offline.
 
 However:
-- almost all collapsed when translated into real-time rules.
+> almost all collapsed when translated into real-time rules.
 
 One exception survived:
 - a focused random forest model predicting Mark 38 trades.
 
-This model successfully identified:
-- trades preceding major price movements.
+This model successfully identified trades preceding major price movements.
 
 Still, we remained cautious with ML throughout the competition.
 
@@ -614,8 +675,7 @@ Initially, we built:
 - imbalance signals,
 - and family-wide relationship models.
 
-At first, it looked like we found:
-> unlimited alpha.
+At first, it looked like we found unlimited alpha.
 
 Everything seemed beautifully connected.
 
@@ -623,7 +683,7 @@ Residuals looked perfect.
 Backtests exploded upward.
 Entire families appeared predictable.
 
-We became extremely skeptical.
+This only made us extremely skeptical.
 
 ### Out-of-Sample Collapse
 
@@ -641,8 +701,7 @@ Relationships immediately collapsed:
 
 This was one of the most important lessons of the competition.
 
-If you searched hard enough:
-> you could absolutely find absurdly profitable backtests.
+If you searched hard enough, you could absolutely find absurdly profitable backtests.
 
 The hard part was finding relationships that survived reality.
 
