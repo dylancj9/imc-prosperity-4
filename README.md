@@ -986,14 +986,6 @@ The return structure there was genuinely interesting:
 
 <tr valign="top">
 <td width="100%" align="center">
-  <img src="Figures/hierarchical_clustering_snackpacks.png"
-       alt="SNACKPACK Hierarchical structure"
-       width="100%" />
-</td>
-</tr>
-
-<tr valign="top">
-<td width="100%" align="center">
   <em>Correlation structure inside the SNACKPACK family.</em>
 </td>
 </tr>
@@ -1111,75 +1103,102 @@ Ironically, a few components we still suspected might be slightly overfit ended 
 # Manual Challenge
 
 <a id="manual-round-1"></a>
-## Round 1
+## Round 1: An Intarian Welcome 
 
-The first manual round involved auction optimization.
+**The challenge:**
 
+The first manual round was a one-shot auction optimization problem on two products: **DRYLAND_FLAX** and **EMBER_MUSHROOM**. For each product, we submitted a single limit order consisting of a price and quantity after all other orders were already fixed.
 
-**Key insight:** You pay the *clearing price*, not your bid. Bid price only sets queue position. Quantity controls whether your bid pushes the clearing price up via the higher-price tie-break rule.
+The exchange then selected a single clearing price that:
+- maximized traded volume,
+- and, in the event of a tie, chose the higher price.
 
-**Method:** For each (bid_price, qty) candidate, simulate the auction: build the volume curve (demand≥P vs supply≤P at every level), pick the price with max traded volume (ties → higher price), then allocate by price→time priority. Profit = fill × (buyback − clearing − fee). Grid-search over all integer prices ≤ buyback, with fine sweep around analytically-derived clearing-transition thresholds.
+All trades executed at the clearing price, and because we submitted last, we were always last in queue at any price level we joined. Any inventory we bought was then immediately sold back at a fixed price:
+- **DRYLAND_FLAX:** 30 per unit, no fee
+- **EMBER_MUSHROOM:** 20 per unit, with a 0.10 fee per unit traded
 
-**FLAX → BID 9,999 @ 30 → profit 9,999**
-Without your order, clearing = 28 (40k traded). Adding 9,999 demand at p=30 makes p=29 also tie at 40k → clearing = 29 (margin 1). At 10,000, p=30 also ties → clearing jumps to 30, profit = 0.
+**Our strategy**
 
-**EMBER → BID 19,999 @ 20 → profit 77,996.10**
-Baseline clears at 15 (86k traded). Adding 19,999 demand pushes p=16 to 91k traded → clearing = 16 (margin 3.90). At 20,000, p=17 also hits 91k → clearing jumps to 17, profit collapses.
+The key insight was that we paid the **clearing price**, not our own bid. This meant bid price mattered mainly through its effect on queue position and on whether our order changed the clearing-price regime. Quantity mattered because it could push the auction into a new tie, which would then be resolved upward by the higher-price tie-break rule.
 
-**Total: 87,995**
+To solve this, we built an exact in-house auction simulator and brute-forced every feasible `(bid_price, quantity)` pair. For each candidate, we:
+- constructed the cumulative demand and supply curves at every price level,
+- computed the clearing price under the official auction rule,
+- allocated fills using price priority and then time priority,
+- and calculated profit as `fill × (buyback price − clearing price − fee)`.
 
-As expected, we ended up with the optimal submission for this challenge and placed **🏆 1st globally** on the manual challenge leaderboard for round 1.
+This turned the problem into a clean optimization over discrete clearing-price transitions. In both products, the optimum ended up sitting exactly one unit below the quantity level that would have pushed the auction into the next, less profitable clearing-price regime.
+
+### **DRYLAND_FLAX**
+
+For DRYLAND_FLAX, the optimal order was **9,999 units at price 30**, producing a profit of **9,999**.
+
+Without our order, the auction cleared at `28` with `40,000` units traded. Adding `9,999` units of demand at `30` caused price `29` to tie for maximum traded volume at `40,000`, so the exchange selected `29` by the higher-price tie-break rule. This left us with a margin of `1` per unit.
+
+At `10,000` units, price `30` also tied for maximum volume, so the clearing price jumped to `30`, eliminating all profit. The optimum therefore sat exactly one unit below that transition.
+
+### **EMBER_MUSHROOM**
+
+For EMBER_MUSHROOM, the optimal order was **19,999 units at price 20**, producing a profit of **77,996.10**.
+
+The baseline auction cleared at `15` with `86,000` units traded. Adding `19,999` units of demand pushed price `16` up to `91,000` traded, making it the unique best clearing level and leaving a margin of `3.90` per unit after fees.
+
+At `20,000` units, price `17` also reached `91,000` traded, so the clearing price moved up again and profit dropped sharply. As with FLAX, the optimum sat just below the next clearing-price transition.
+
+**Final submission**
+
+- **DRYLAND_FLAX:** bid `30` for `9,999`
+- **EMBER_MUSHROOM:** bid `20` for `19,999`
+
+**Total profit: 87,995.10**
+
+This approach worked exactly as intended: we obtained the optimal submission for the challenge and finished **🏆 1st globally** on the manual leaderboard for Round 1.
 
 <br/>
 
 <a id="manual-round-2"></a>
-## Round 2
-
-# Invest & Expand — Optimal Strategy
+## Round 2: Invest & Expand
 
 **The challenge:**
 
-You are expanding your outpost into a true market making firm with a budget of `50 000` XIRECs. You need to allocate this budget across three pillars:
+The second manual round was a one-shot budget allocation problem. We were given `50,000` XIRECs to distribute across three pillars — **Research**, **Scale**, and **Speed** — with the goal of maximizing final PnL.
 
-- **Research**
-- **Scale**
-- **Speed**
+Unlike a standard static optimization problem, this challenge had a strategic component: while Research and Scale were deterministic functions of our own allocation, the value of Speed depended on how our choice ranked relative to the rest of the field. That turned the problem into a game-theoretic best-response exercise rather than a simple constrained maximization.
 
-You choose percentages for each pillar between 0–100%. Total allocation cannot exceed 100%. Your final PnL (Profit and Loss) score is:
+**Key mechanics**
 
-<aside>
-ℹ️
-
-PnL = (Research × Scale × Speed) − Budget_Used
-
-</aside>
-
-### **The pillars**
-
-**Research** determines how strong your trading edge is. It grows **logarithmically** from `0` (for `0` invested) to `200 000`  (for `100` invested). The exact formula is `research(x) = 200_000 * np.log(1 + x) / np.log(1 + 100)`. Here, `np.log` is a python function from NumPy package for natural logarithm.
-
-**Scale** determines how broadly you deploy your strategy across markets. It grows **linearly** from `0` (for `0` invested) to `7` (for `100` invested).
-
-**Speed** determines how often you win the trades you target. It is **rank-based** across all players:
-
-- Highest speed investment receives a `0.9` multiplier.
-- Lowest receives `0.1`.
-- Everyone in between is scaled linearly by rank, equal investments share the same rank.
+- **Research** grew logarithmically from `0` to `200,000` as allocation increased from `0` to `100`.
+- **Scale** grew linearly from `0` to `7`.
+- **Speed** was rank-based across all teams:
+  - highest Speed received a `0.9` multiplier,
+  - lowest received `0.1`,
+  - everyone in between was scaled linearly by rank,
+  - equal allocations shared the same rank.
+- Total allocation could not exceed `100%`.
+- PnL = (Research × Scale × Speed) − Budget_Used
 
 **Our strategy**
 
-The core of this challenge was a game-theoretic best-response problem: because the optimal value of Speed depends on how it ranks relative to the rest of the field, we first estimated the distribution of other teams’ Speed allocations, and then used an in-house brute-force optimizer to solve for the Speed level and the corresponding Research/Scale split that maximized expected PnL.
+The core of this challenge was estimating the field’s Speed distribution. Once Speed was fixed, the Research/Scale optimization was relatively straightforward: because Research was logarithmic and Scale was linear, the best non-Speed split was stable and heavily favored Scale after a modest Research allocation. The real uncertainty came from the rank-based Speed multiplier.
 
-Our approach to approximating the field’s Speed distribution was based on a simple but highly effective assumption: many teams would rely on their preferred LLM for their allocation decisions to this problem. Rather than hand-picking a single guess for the crowd, we treated these model outputs as a noisy but useful proxy for how a large fraction of participants might approach the problem.
+To approximate the crowd, we made a simple but effective assumption: many teams would rely on their preferred LLM for an initial recommendation. Rather than hand-picking a single crowd guess, we treated model outputs as a noisy but useful proxy for how a large fraction of the field might approach the problem.
 
-In practice, we used the official challenge description as a seed prompt and generated six prompt variants corresponding to different player archetypes. We then queried several models (mostly GPT and Claude) repeatedly through their APIs using those prompts, collected the resulting allocations, and compiled them into a CSV. This gave us multiple empirical distributions of likely Speed choices for various LLMs.
+In practice, we used the official challenge description as a seed prompt and generated six prompt variants corresponding to different player archetypes. We then queried several models, primarily GPT and Claude, repeatedly through their APIs, collected the resulting allocations, and compiled them into CSVs. This gave us empirical crowd priors for likely Speed choices under different LLM assumptions.
 
 ![Speed allocation distribution](Figures/speed_distribution.png)
 ![GPT 5.4 dist](Figures/dist_5_4.png)
 
-Feeding these sampled crowd distributions into our in-house optimizer, we solved the problem by brute force. For each candidate Speed value from 0 to 100, we estimated the corresponding expected rank-based multiplier against the sampled field, then enumerated every feasible integer (Research, Scale) pair satisfying the budget constraint and selected the allocation with the highest expected PnL across multiple models (GPT 5.4 and Claude Opus 4.7 given most weight in this decision since they were the active models on their respective chatbot websites at the time), yielding 15 Research, 43 Scale, and 42 Speed.
+We then fed these sampled crowd distributions into our in-house brute-force optimizer. For each candidate Speed value from `0` to `100`, the optimizer estimated the corresponding expected rank-based multiplier against the sampled field, then enumerated every feasible integer `(Research, Scale)` pair satisfying the budget constraint and selected the allocation with the highest expected PnL. In our final decision, we weighted GPT 5.4 and Claude Opus 4.7 most heavily, since they were the flagship public chatbot models at the time.
 
-Overall, this approach worked exceptionally well for us. As one of only a few teams to get the optimal submission for this manual challenge, we ended up placing **🏆 1st globally** for the manual challenge across Phase 1 (rounds 1 and 2).
+**Final submission**
+
+- **Research:** `15`
+- **Scale:** `43`
+- **Speed:** `42`
+
+**Result**
+
+This approach worked exceptionally well for us. As one of only a few teams to reach the optimal submission for this challenge, we finished **🏆 1st globally** in manual trading across Phase 1 (Rounds 1 and 2).
 
 <br/>
 
