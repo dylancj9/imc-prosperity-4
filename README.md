@@ -845,39 +845,9 @@ It was simply more exposed to bad short-run realization.
 
 Most Marks turned out to be far less informative than we initially hoped.
 
-There was a lot of temptation to build broad Mark-conditioned strategies, but for most Marks the signal was either too weak, too unstable, or too hard to monetize in real time.
+There was a lot of temptation to build broad Mark-conditioned strategies, but for all Marks the signal was either too weak, too unstable, or too hard to monetize in real time.
 
-Only a small subset consistently mattered:
-- Mark 14 emerged as the dangerous informed maker,
-- Mark 01 as an informed VELVET buyer and voucher harvester,
-- Mark 67 as a small but real specialist,
-- Mark 38 and Mark 55 as anti-informed takers,
-- and Mark 22 as a one-sided seller of out-of-the-money vouchers.
-
-One relationship dominated the round:
-> Mark 14 versus Mark 38.
-
-Roughly 60% of HYDROGEL flow came from this pair.
-
-Around 80% of Mark 14's real PnL also came from trading against Mark 38.
-
-#### Machine Learning Experiments
-
-We performed significant ML research during this round.
-
-The research split into two very different stories.
-
-General Mark-conditioned path-max strategies looked extremely promising offline.
-
-However:
-> almost all collapsed once translated into executable real-time rules.
-
-The one exception was much narrower:
-- a focused random forest model for predicting Mark 38 trades.
-
-That signal was useful because Mark 38's trades often arrived just before very large upward or downward price moves.
-
-Still, we remained highly cautious with ML throughout the competition.
+So, no Mark-based strategies made it into the final submission, and we instead focused on improving our existing market making and option trading strategies.
 
 <br/>
 
@@ -949,7 +919,7 @@ On top of that baseline, only a few alpha layers survived the cut.
 The family-level PnL attribution after the round reinforced that story.
 
 The clearest winners were:
-- OXYGEN_SHAKES at about +669k (Wow!)
+- OXYGEN_SHAKES at about +669k
 - PEBBLES at about +22.4k
 - SNACKPACKS at about +19.1k
 - TRANSLATORS at about +11.7k
@@ -958,7 +928,7 @@ The clearest winners were:
 
 Those were mostly families where either broad market making alone was already strong, or where the extra structure we kept live was at least directionally helpful.
 
-In particular, OXYGEN_SHAKES were actually our main PnL source, which is important context for the microstructure alpha discussed below.
+In particular, OXYGEN_SHAKES were actually our main PnL source, which the DaFuck alpha discussed below largely explains.
 
 The weak spots were just as informative:
 - MICROCHIPS lost about 26.8k,
