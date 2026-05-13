@@ -1200,7 +1200,7 @@ PnL = (Research × Scale × Speed) − Budget_Used
 
 The core of this challenge was a game-theoretic best-response problem: because the optimal value of Speed depends on how it ranks relative to the rest of the field, we first estimated the distribution of other teams’ Speed allocations, and then used an in-house brute-force optimizer to solve for the Speed level and the corresponding Research/Scale split that maximized expected PnL.
 
-Our approach to approximating the field’s Speed distribution was based on a simple but highly effective assumption: many teams would rely on their preferred LLM for an initial recommendation. Rather than hand-picking a single guess for the crowd, we treated these model outputs as a noisy but useful proxy for how a large fraction of participants might approach the problem.
+Our approach to approximating the field’s Speed distribution was based on a simple but highly effective assumption: many teams would rely on their preferred LLM for their allocation decisions to this problem. Rather than hand-picking a single guess for the crowd, we treated these model outputs as a noisy but useful proxy for how a large fraction of participants might approach the problem.
 
 In practice, we used the official challenge description as a seed prompt and generated six prompt variants corresponding to different player archetypes. We then queried several models (mostly GPT and Claude) repeatedly through their APIs using those prompts, collected the resulting allocations, and compiled them into a CSV. This gave us multiple empirical distributions of likely Speed choices for various LLMs.
 
