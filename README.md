@@ -1158,8 +1158,7 @@ Baseline clears at 15 (86k traded). Adding 19,999 demand pushes p=16 to 91k trad
 
 **Total: 87,995**
 
-This ended up topping the leaderboard, with the actual distribution being:
-![Actual distribution](Figures/actual_dist_round_1.jpg)
+As expected, we ended up with the optimal submission for this challenge and placed **🏆 1st globally** on the manual challenge leaderboard for round 1.
 
 <br/>
 
@@ -1199,17 +1198,18 @@ PnL = (Research × Scale × Speed) − Budget_Used
 
 **Our strategy**
 
-The crux of this challenge is of course the game theory problem of estimating the distribution of speed allocations among all the teams. This dictates our own choice of speed allocation, and from this we can compute the allocations for research and scale that maximize PnL.
+The core of this challenge was a game-theoretic best-response problem: because the optimal value of Speed depends on how it ranks relative to the rest of the field, we first estimated the distribution of other teams’ Speed allocations, and then used an in-house brute-force optimizer to solve for the Speed level and the corresponding Research/Scale split that maximized expected PnL.
 
-Our strategy to approaximate the speed distribution is based on a simple assumption: a large number of teams will base their allocation on the recommendations of their favourite LLM. Therefore, by using these companies' APIs, we can query these models a large number of times to gauge what their take on this challenge is. 
+Our approach to approximating the field’s Speed distribution was based on a simple but highly effective assumption: many teams would rely on their preferred LLM for an initial recommendation. Rather than hand-picking a single guess for the crowd, we treated these model outputs as a noisy but useful proxy for how a large fraction of participants might approach the problem.
 
-In practice, what we did is use the information above as a seed prompt, and asked Claude to write 6 prompts based on it, mimicking different player prototype. Then, we called prompted a number of different models using those, and compiled the results in a .csv file.
+In practice, we used the official challenge description as a seed prompt and generated six prompt variants corresponding to different player archetypes. We then queried several models (mostly GPT and Claude) repeatedly through their APIs using those prompts, collected the resulting allocations, and compiled them into a CSV. This gave us multiple empirical distributions of likely Speed choices for various LLMs.
 
 ![Speed allocation distribution](Figures/speed_distribution.png)
 ![GPT 5.4 dist](Figures/dist_5_4.png)
 
-Using this, and our in-house optimizer, we settled on 15 for research, 43 for scale, 42 for speed
+Feeding these sampled crowd distributions into our in-house optimizer, we solved the problem by brute force. For each candidate Speed value from 0 to 100, we estimated the corresponding expected rank-based multiplier against the sampled field, then enumerated every feasible integer (Research, Scale) pair satisfying the budget constraint and selected the allocation with the highest expected PnL across multiple models (GPT 5.4 and Claude Opus 4.7 given most weight in this decision since they were the active models on their respective chatbot websites at the time), yielding 15 Research, 43 Scale, and 42 Speed.
 
+Overall, this approach worked exceptionally well for us. As one of only a few teams to get the optimal submission for this manual challenge, we ended up placing **🏆 1st globally** for the manual challenge across Phase 1 (rounds 1 and 2).
 
 <br/>
 
