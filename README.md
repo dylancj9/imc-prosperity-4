@@ -264,7 +264,7 @@ This produced a significantly cleaner and more predictive estimate of fair value
 <table>
 <tr valign="top">
 <td width="100%" align="center">
-  <strong>Figure 2: Wall Mid vs Raw Mid (Ash-Coated Osmium)</strong>
+  <strong>Figure 3: Wall Mid vs Raw Mid (Ash-Coated Osmium)</strong>
 </td>
 </tr>
 
@@ -345,7 +345,7 @@ After a quick Augmented Dickey-Fuller test, we confirmed that it was stationary 
 <table>
 <tr valign="top">
 <td width="100%" align="center">
-  <strong>Figure 3: OSMIUM Orderbook</strong>
+  <strong>Figure 4: OSMIUM Orderbook</strong>
 </td>
 </tr>
 
@@ -421,7 +421,7 @@ Unlike OSMIUM, it increased almost deterministically by 0.1 every tick.
 <table>
 <tr valign="top">
 <td width="100%" align="center">
-  <strong>Figure 4: PEPPER_ROOT Orderbook</strong>
+  <strong>Figure 5: PEPPER_ROOT Orderbook</strong>
 </td>
 </tr>
 
@@ -469,7 +469,7 @@ Rather than putting the full Bellman derivation inline, the compiled formulation
 <table>
 <tr valign="top">
 <td width="100%" align="center">
-  <strong>Figure 5: PEPPER_ROOT Bellman Compilation</strong>
+  <strong>Figure 6: PEPPER_ROOT Bellman Compilation</strong>
 </td>
 </tr>
 
@@ -601,10 +601,10 @@ So we modeled these transitions as a Markov-style recurrence process across prod
 <table>
 <tr valign="top">
 <td width="50%" align="center">
-  <strong>Figure 5: OSMIUM Taker Recurrence</strong>
+  <strong>Figure 7: OSMIUM Taker Recurrence</strong>
 </td>
 <td width="50%" align="center">
-  <strong>Figure 6: PEPPER_ROOT Taker Recurrence</strong>
+  <strong>Figure 8: PEPPER_ROOT Taker Recurrence</strong>
 </td>
 </tr>
 
@@ -674,7 +674,7 @@ That made the product relatively straightforward compared to what came next.
 <table>
 <tr valign="top">
 <td width="100%" align="center">
-  <strong>Figure 5: HYDROGEL_PACK Orderbook</strong>
+  <strong>Figure 9: HYDROGEL_PACK Orderbook</strong>
 </td>
 </tr>
 
@@ -707,7 +707,7 @@ A simple Avellaneda-Stoikov market maker no longer worked well due to:
 <table>
 <tr valign="top">
 <td width="100%" align="center">
-  <strong>Figure 6: VELVETFRUIT_EXTRACT Orderbook</strong>
+  <strong>Figure 10: VELVETFRUIT_EXTRACT Orderbook</strong>
 </td>
 </tr>
 
@@ -765,7 +765,7 @@ This completely destroyed the standard 'fit parabola → trade IV mispricing' ap
 <table>
 <tr valign="top">
 <td width="100%" align="center">
-  <strong>Figure 7: IV smile</strong>
+  <strong>Figure 11: IV smile</strong>
 </td>
 </tr>
 
@@ -1002,7 +1002,7 @@ The return structure there was genuinely interesting:
 <table>
 <tr valign="top">
 <td width="100%" align="center">
-  <strong>Figure 8: SNACKPACK Correlation Structure</strong>
+  <strong>Figure 12: SNACKPACK Correlation Structure</strong>
 </td>
 </tr>
 
@@ -1042,7 +1042,7 @@ The cleanest standalone microstructure signal was what we internally called the 
 <table>
 <tr valign="top">
 <td width="100%" align="center">
-  <strong>Figure 9: DaFuck Alpha</strong>
+  <strong>Figure 13: DaFuck Alpha</strong>
 </td>
 </tr>
 
