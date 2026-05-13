@@ -1038,7 +1038,7 @@ What happened was that price would jump to the nearest round 100 level, such as 
 So in practice it behaved like a very short-horizon mean reversion signal.
 
 The implementation was correspondingly simple:
-- detect a sufficiently large jump after a few stable ticks,
+- for each product, detect a sufficiently large jump after a few stable ticks,
 - assume the move is likely to revert,
 - and immediately take liquidity on the opposite side.
 
