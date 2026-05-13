@@ -323,16 +323,19 @@ Used correctly, vibe coding became an enormous force multiplier.
 
 ## Round 1
 
+Round 1 introduced two products, both with max position 80.
+
 ### OSMIUM
 
-The first product introduced was ASH_OSMIUM_OSMIUM (which we will simply call OSMIUM).
+The first product introduced was ASH_OSMIUM_OSMIUM, which we simply called OSMIUM.
 
 OSMIUM was essentially:
 - large spread,
 - slowly mean reverting,
+- occasionally crossing the Wall Mid,
 - and highly suitable for market making.
 
-After performing an Augmented Dickey-Fuller test, we confirmed the product was stationary around approximately 10,000.
+After a quick Augmented Dickey-Fuller test, we confirmed that it was stationary around approximately 10,000, with p-value below 0.0005.
 
 <table>
 <tr valign="top">
@@ -358,16 +361,20 @@ After performing an Augmented Dickey-Fuller test, we confirmed the product was s
 
 #### Empty Book Behavior
 
-One of the first major discoveries was what happened when one side of the book became empty.
+One of the first major discoveries was what happened when one side of the book became empty; When quoting on an empty side, sometimes a taker showed up that took your quote.
 
-This occurred approximately 8% of the time.
+This happened roughly 8% of the time, on both products.
 
-We tested increasingly aggressive quotes and discovered that:
-- a spread of roughly 100 around previous Wall Mid
-- maximized profitability
-- while still reliably getting filled.
+We tested increasingly aggressive quotes and discovered that a spread of exactly 100 around previous Wall Mid maximized profitability while still getting filled.
 
-This alone generated enormous expected value.
+Using rough averages:
+- trade frequency around 0.047,
+- average trade size around 5,
+- and captured spread around 100,
+
+this gave about 23 expected PnL per empty-side event.
+
+Over a full day, that translated into roughly 18.6k expected PnL for OSMIUM alone.
 
 #### Final Strategy
 
@@ -388,13 +395,23 @@ The strategy:
 - crossed spread when sufficiently favorable,
 - and widened aggressively when one side became empty.
 
+More concretely, we used an inventory-adjusted reserve price of the form
+
+S_r = 10000 - gamma * Q
+
+with gamma = 1/12, so the adjustment at max inventory was roughly 6.7.
+
+When one side of the order book disappeared, we did not use the full width of 100 in production.
+
+Instead, we quoted a spread of 98 around Wall Mid as a small safety margin against Wall Mid estimation error.
+
 <br/>
 
 ### INTARIAN_PEPPER_ROOT
 
-PEPPER_ROOT behaved very differently.
+The second asset was INTARIAN_PEPPER_ROOT, which we called PEPPER_ROOT.
 
-Unlike OSMIUM, it increased almost deterministically by approximately 0.1 per tick.
+Unlike OSMIUM, it increased almost deterministically by 0.1 every tick.
 
 <table>
 <tr valign="top">
@@ -418,37 +435,73 @@ Unlike OSMIUM, it increased almost deterministically by approximately 0.1 per ti
 </tr>
 </table>
 
-The obvious strategy was simply:
+The obvious strategy was:
 > buy and hold
 
-However, because the spread remained large, market making was still profitable.
+However, the average spread was around 14, which was too attractive to ignore for market making.
 
-This created a more interesting optimization problem.
+The problem was that market making a deterministically drifting product is less trivial than it first appears.
 
 #### Dynamic Programming Model
 
-We modeled the problem using dynamic programming.
+For Round 1, we modeled PEPPER_ROOT with dynamic programming.
 
-The Bellman equation optimized expected future value over:
-- inventory states,
-- spread distributions,
-- and trade size probabilities.
+The idea was to compute the optimal expected future value for every:
+- time step,
+- inventory level from -80 to 80,
+- spread state,
+- and trade-size realization.
 
-This allowed us to calculate:
-- optimal bid thresholds,
-- optimal ask thresholds,
-- and inventory-dependent quoting behavior.
+The model used:
+- deterministic drift of 0.1 per tick,
+- per-side trade rate around 0.017,
+- and an empirical trade-size distribution centered around roughly 5.14.
 
-The initial implementation underperformed slightly due to several hidden assumptions.
+This produced bid and ask thresholds describing the worst prices at which quoting was still positive EV.
 
-To compensate, we introduced:
-- bid adjustment parameters,
-- ask adjustment parameters,
-- and optimized them through parameter sweeps.
+Rather than putting the full Bellman derivation inline, the compiled formulation we used is shown below.
 
-This was not mathematically elegant.
+<table>
+<tr valign="top">
+<td width="100%" align="center">
+  <strong>Figure 5: PEPPER_ROOT Bellman Compilation</strong>
+</td>
+</tr>
 
-But it worked.
+<tr valign="top">
+<td width="100%" align="center">
+  <img src="Figures/bellman_compilation.png"
+       alt="PEPPER_ROOT Bellman Compilation"
+       width="100%" />
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <em>Bellman setup used to derive PEPPER_ROOT quote thresholds.</em>
+</td>
+</tr>
+</table>
+
+Once we had the value function, the strategy became simple:
+- penny the best bid or ask when the corresponding threshold allowed it,
+- market take when the threshold crossed the opposite best quote,
+- and use the same empty-book quote of spread 98 when one side disappeared.
+
+This first approach did not work quite as well as we hoped.
+
+So instead of using the raw thresholds directly, we introduced:
+- a bid adjustment parameter,
+- an ask adjustment parameter,
+- and optimized both with a grid search over realized PnL.
+
+The best values were:
+- bid adjustment = 4,
+- ask adjustment = 5.
+
+This was clearly not perfect, and we later fixed the modeling issue properly in Round 2.
+
+But it still outperformed pure buy-and-hold.
 
 <br/>
 
@@ -458,9 +511,11 @@ But it worked.
 
 Round 2 introduced the ability to bid for “extra market access.”
 
-The catch:
-- extra access only increased quotes,
-- not actual trading opportunities.
+If your bid was above the median submitted bid, you received access to an expanded market feed.
+
+The catch was that this "extra access" only meant:
+- roughly 20% more quotes,
+- but not 20% more trades.
 
 This was an intentional red herring.
 
@@ -471,16 +526,55 @@ The obvious answer became:
 
 <br/>
 
-### Recurring Takers
+### Strategy Changes
+
+The OSMIUM strategy itself did not materially change from Round 1.
+
+However, Round 2 exposed a weakness in our implementation.
+
+We had hard-coded the fair value at 10,000, and that anchor did not hold perfectly on this round's data.
+
+As a result, we spent too much time pinned at max inventory, which weakened both:
+- the mean reversion component,
+- and the market making component.
+
+Looking back, we should have added a fail-safe:
+- if inventory stayed maxed for long enough,
+- we should have gradually shifted our assumed fair value toward the observed market mid.
+
+There was not any hint that this could've happened though, since in the complete historical data for OSMIUM, it's fair value was always 10,000
+PEPPER_ROOT changed more meaningfully.
+
+In Round 1, our dynamic programming model still relied on "adjustment" parameters to compensate for hidden modeling errors.
+
+We did not like that.
+
+So for Round 2 we fixed the DP formulation itself by explicitly incorporating:
+- spread distributions,
+- and the arrival of large-spread takers.
+
+This produced much cleaner bid and ask thresholds and removed the need for the earlier bid/ask adjustment parameters.
+
+We placed 4th in this round, but the OSMIUM underperformance made it clear that even a good structural model still needed defensive safeguards.
+
+<br/>
+
+### Recurring Takers Research
 
 During the intermission period following Round 2, we performed broader research into generalized alpha sources.
 
+By that point, the admins had already announced that OSMIUM and PEPPER_ROOT would not carry forward into the remaining Phase 2 rounds.
+
+So the goal of this research was not to squeeze the last bit of PnL out of those products.
+
+The goal was to identify product-agnostic alpha sources that might generalize into later rounds.
+
 This led to one of our most interesting discoveries.
 
-Across both OSMIUM and PEPPER:
-- takers frequently reappeared
-- at identical timestamps
-- with identical size and direction
+Across many instances on both OSMIUM and PEPPER_ROOT, takers reappeared:
+- at identical timestamps,
+- with identical side,
+- and with identical size,
 - on consecutive days.
 
 We eventually identified the underlying mechanism:
@@ -493,7 +587,45 @@ then there was a very high probability the same taker appeared again:
 - at timestamp t
 - on day d+1
 
-This effect became extremely strong for larger orders.
+The effect appeared to be strongly one-day dependent:
+- day d takers had strong predictive power for day d+1,
+- but much less direct predictive power for day d+2 unless the same event also appeared on day d+1.
+
+So we modeled these transitions as a Markov-style recurrence process across products and rounds.
+
+<table>
+<tr valign="top">
+<td width="50%" align="center">
+  <strong>Figure 5: OSMIUM Taker Recurrence</strong>
+</td>
+<td width="50%" align="center">
+  <strong>Figure 6: PEPPER_ROOT Taker Recurrence</strong>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="50%" align="center">
+  <img src="Figures/markov_chain_osmium.png"
+       alt="OSMIUM Markov Chain"
+       width="100%" />
+</td>
+<td width="50%" align="center">
+  <img src="Figures/markov_chain_pepperroot.png"
+       alt="PEPPER_ROOT Markov Chain"
+       width="100%" />
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" colspan="2" align="center">
+  <em>Recurring taker probabilities across consecutive days for OSMIUM and PEPPER_ROOT.</em>
+</td>
+</tr>
+</table>
+
+The round-to-round difference was especially noticeable:
+- this recurring-actor behavior was very strong in Round 2,
+- and much weaker in Round 1.
 
 For OSMIUM:
 - takers with size ≥ 7
@@ -501,7 +633,11 @@ For OSMIUM:
 
 #### Monetizing This
 
-The alpha came from exploiting Prosperity’s matching engine mechanics.
+At first glance, this does not obviously look monetizable.
+
+Knowing when a taker will arrive is only useful if the matching engine lets you reshape the book first.
+
+That is exactly what the Prosperity simulator allowed.
 
 If we predicted a large taker would arrive:
 1. we cleared all existing liquidity,
@@ -511,6 +647,10 @@ If we predicted a large taker would arrive:
 
 This effectively recreated hidden-taker opportunities.
 
+Of course, this came with a tradeoff:
+- clearing the book imposed an immediate adverse execution cost,
+- so the expected taker fill had to be strong enough to justify it.
+
 <br/>
 
 ## Round 3
@@ -519,10 +659,12 @@ This effectively recreated hidden-taker opportunities.
 
 HYDROGEL_PACK behaved similarly to OSMIUM:
 - slowly mean reverting,
-- stable spread,
+- average spread around 16,
 - and consistently liquid.
 
-The product was relatively straightforward compared to what came next.
+The main difference from OSMIUM was that HYDROGEL_PACK was somewhat more volatile, while never exhibiting the empty-book behavior that made OSMIUM so profitable.
+
+That made the product relatively straightforward compared to what came next.
 
 <table>
 <tr valign="top">
@@ -550,7 +692,7 @@ The product was relatively straightforward compared to what came next.
 
 ### VELVETFRUIT_EXTRACT
 
-VELVETFRUIT_EXTRACT was significantly more volatile.
+VELVETFRUIT_EXTRACT was also mean reverting, but with a much tighter spread of around 5 and significantly higher volatility.
 
 A simple Avellaneda-Stoikov market maker no longer worked well due to:
 - tighter spreads,
@@ -586,7 +728,9 @@ Estimated parameters:
 - theta ≈ 0.15
 - sigma ≈ 9.8
 
-This implied long-term volatility of approximately 18.
+This implied a long-term OU volatility of approximately
+
+Omega = sigma / sqrt(2 * theta) ≈ 18
 
 This became our primary threshold.
 
@@ -613,6 +757,28 @@ However, analysis revealed:
 
 This completely destroyed the standard 'fit parabola → trade IV mispricing' approach.
 
+<table>
+<tr valign="top">
+<td width="100%" align="center">
+  <strong>Figure 7: IV smile</strong>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <img src="IV-Smile.png"
+       alt="IV SMILE"
+       width="100%" />
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <em>Typical VELVETFRUIT_EXTRACT orderbook behavior.</em>
+</td>
+</tr>
+</table>
+
 Instead, we concluded the options were essentially priced fairly.
 
 Therefore:
@@ -621,43 +787,92 @@ Therefore:
 
 The resulting thresholds were computed through:
 - Black-Scholes pricing,
-- combined with OU thresholds.
+- using each option's average IV for that day,
+- and evaluating the underlying at the OU thresholds around 5250 ± 18.
+
+We also briefly investigated whether certain bot trades in lower strikes such as VEV_4000 near rolling extrema were predictive of reversals.
+
+In retrospect, this was mostly an artifact of the underlying itself being mean reverting rather than a genuinely distinct signal.
 
 <br/>
 
 ## Round 4
 
+Round 4 largely kept the Round 3 product set, but added trader Marks.
+
+### Monte Carlo Option Thresholds
+
+This round pushed us to improve our voucher trading substantially.
+
+We built a Monte Carlo framework that:
+- simulated future VELVETFRUIT_EXTRACT paths using our Ornstein-Uhlenbeck model
+- priced each voucher along those paths with Black-Scholes
+- kept a fixed implied volatility per voucher
+
+This gave us a much more realistic estimate of the distribution of future option values than using a single OU threshold on the underlying.
+
+The main reason this mattered was **Theta**.
+
+Even if the underlying reverted in the expected direction, the vouchers were constantly losing time value.
+
+So the correct buy and sell thresholds could not be based only on expected terminal value:
+- they also had to compensate for time decay,
+- especially for the more out-of-the-money vouchers.
+
+We therefore optimized thresholds directly on simulated PnL outcomes.
+
+Our final objective was:
+> E[PnL] - 0.25 Std(PnL)
+
+rather than maximizing Sharpe ratio.
+
+This deliberately chose a more aggressive point on the risk-return frontier:
+- higher expected PnL,
+- but also materially higher variance.
+
+In hindsight, this likely explains why Round 4 went worse for us than the previous round.
+
+We do not think the approach was fundamentally wrong.
+
+It was simply more exposed to bad short-run realization.
+
 ### Mark Analysis
 
-Round 4 introduced trader Marks.
+Most Marks turned out to be far less informative than we initially hoped.
 
-Several Marks quickly emerged as highly important:
-- Mark 14,
-- Mark 38,
-- Mark 55,
-- Mark 22,
-- and Mark 01.
+There was a lot of temptation to build broad Mark-conditioned strategies, but for most Marks the signal was either too weak, too unstable, or too hard to monetize in real time.
+
+Only a small subset consistently mattered:
+- Mark 14 emerged as the dangerous informed maker,
+- Mark 01 as an informed VELVET buyer and voucher harvester,
+- Mark 67 as a small but real specialist,
+- Mark 38 and Mark 55 as anti-informed takers,
+- and Mark 22 as a one-sided seller of out-of-the-money vouchers.
 
 One relationship dominated the round:
 > Mark 14 versus Mark 38.
 
-Approximately 60% of HYDROGEL flow came from this interaction.
+Roughly 60% of HYDROGEL flow came from this pair.
+
+Around 80% of Mark 14's real PnL also came from trading against Mark 38.
 
 #### Machine Learning Experiments
 
 We performed significant ML research during this round.
 
-Most generalized Mark-conditioned path-max strategies looked incredible offline.
+The research split into two very different stories.
+
+General Mark-conditioned path-max strategies looked extremely promising offline.
 
 However:
-> almost all collapsed when translated into real-time rules.
+> almost all collapsed once translated into executable real-time rules.
 
-One exception survived:
-- a focused random forest model predicting Mark 38 trades.
+The one exception was much narrower:
+- a focused random forest model for predicting Mark 38 trades.
 
-This model successfully identified trades preceding major price movements.
+That signal was useful because Mark 38's trades often arrived just before very large upward or downward price moves.
 
-Still, we remained cautious with ML throughout the competition.
+Still, we remained highly cautious with ML throughout the competition.
 
 <br/>
 
