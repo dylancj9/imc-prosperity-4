@@ -1005,20 +1005,113 @@ Using this, and our in-house optimizer, we settled on 15 for research, 43 for sc
 
 <br/>
 
-## Round 3
+# Round 3 Manual trading challenge: “The Celestial Gardeners’ Guild”
 
-Round 3 involved reserve-price optimization.
+You trade against a number of counterparties that all have a **reserve price** ranging between **670** and **920**. On the next trading day, you’re able to sell all the product for a fair price, **920**.
 
-The difficult part was not optimization itself.
+The distribution of the bids is **uniformly distributed** at **increments of 5** between **670** and **920**. 
 
-It was:
-> estimating the average second bid submitted by all competitors.
+<aside>
+📃
 
-We reused methods from previous manual rounds to estimate participant distributions and optimized accordingly.
+**Example**: counterparties may have reserve prices at 675 and 680, but not at 676, 677, 678, 679, etc..
+
+</aside>
+
+You may submit **two bids**. If the first bid is **higher** than the reserve price, they trade with you at your first bid. If your second bid is **higher** than the reserve price of a counterparty and **higher** than the mean of second bids of all players you trade at your second bid. If your second bid is **higher** than the reserve price, but **lower** than the mean of second bids of all players, the chance of a trade rapidly decreases: you will trade at your second bid **but** your PNL is penalised by 
+
+$$
+\left(\frac{920 - \text{avg\_b2}}{920 - b2}\right)^3
+$$
+
+## 1. Problem setup
+
+We bid to buy a product from many counterparties. Each counterparty has a hidden reserve price $R$ drawn uniformly from the grid
+
+$$\mathcal{R} = \{670, 675, 680, \dots, 915, 920\} \quad (|\mathcal{R}| = 51)$$
+
+Anything bought is resold at $A = 920$. We submit **two bids** $b_1 < b_2$.
+
+Per counterparty:
+
+$$
+\text{profit}(R;\, b_1, b_2) =
+\begin{cases}
+A - b_1 & \text{if } R < b_1 \\
+(A - b_2) \cdot P(b_2) & \text{if } b_1 \le R < b_2 \\
+0 & \text{if } R \ge b_2
+\end{cases}
+$$
+
+with the **penalty factor**
+
+$$
+P(b_2) =
+\begin{cases}
+1 & \text{if } b_2 \ge \overline{b_2} \\
+\left( \dfrac{A - \overline{b_2}}{A - b_2} \right)^3 & \text{if } b_2 < \overline{b_2}
+\end{cases}
+$$
+
+where $\overline{b_2}$ is the mean of $b_2$ across *all players* (unknown at submission time).
+
+## 2. Expected profit per counterparty
+
+Using the uniform distribution of $R$:
+
+$$
+\mathbb{E}[\pi \mid b_1, b_2] = \frac{1}{51}\Bigl[\,\#\{R \in \mathcal{R} : R < b_1\}\cdot (A - b_1)\;+\;\#\{R \in \mathcal{R} : b_1 \le R < b_2\}\cdot (A - b_2)\cdot P(b_2)\Bigr]
+$$
+
+Continuous approximation (useful for deriving optima) — replace counts by lengths / 250:
+
+$$
+\mathbb{E}[\pi] \;\approx\; \frac{(b_1 - 670)(A - b_1) \;+\; (b_2 - b_1)(A - b_2)\, P(b_2)}{250}
+$$
+
+## 3. Joint optimum (ignoring the penalty, i.e. assuming $b_2 \ge \overline{b_2}$)
+
+Taking partials and setting to zero:
+
+$$
+\frac{\partial \mathbb{E}[\pi]}{\partial b_1} = 0 \;\Rightarrow\; b_1^\star = \tfrac{1}{2}(670 + b_2)
+$$
+
+$$
+\frac{\partial \mathbb{E}[\pi]}{\partial b_2} = 0 \;\Rightarrow\; b_2^\star = \tfrac{1}{2}(A + b_1) = \tfrac{1}{2}(920 + b_1)
+$$
+
+Solving the system:
+
+$$
+b_1^\star \approx 753.3,\qquad b_2^\star \approx 836.7,\qquad \mathbb{E}[\pi^\star] \approx 83.3
+$$
+
+On the discrete integer grid, the top of the flat ridge is $(b_1, b_2) = (751, 835)$ or $(751, 840)$, both yielding $\mathbb{E}[\pi] = 83.0$.
+
+Strategic takeaway #1 — the coupling
+
+$b_1$ and $b_2$ **cannot** be optimised independently. Optimising only the "$b_1$-leg" gives $b_1 = 795$ (midpoint of 670 and 920), which leaves ~6% expected profit on the table. The correct rule is
+
+$$
+b_1 \approx \frac{670 + b_2}{2}
+$$
+
+## 4. The penalty and the game-theory layer
+
+The penalty is cubic: if $b_2 = \overline{b_2} - 10$, the $b_2$-leg profit drops by roughly
+
+$$
+\left( \frac{A - \overline{b_2}}{A - (\overline{b_2} - 10)} \right)^3 \approx 30\%
+$$
+
+Being *slightly* below average hurts **a lot**.
+
+In a Nash-style equilibrium where everyone solves the unconstrained problem, $\overline{b_2}^\star \approx 837$. Bidding at 837 exactly is the coin-flip boundary — some players above, some below. The asymmetry of costs around the optimum (cheap to be slightly low without penalty vs. cubic penalty if you underbid the mean) creates pressure to bid **slightly above** the expected mean.
 
 <br/>
 
-## Round 4
+# Round 4
 
 Round 4 manual introduced:
 - spot trading,
