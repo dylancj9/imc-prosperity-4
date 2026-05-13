@@ -525,7 +525,7 @@ The catch was that this "extra access" only meant:
 
 This was an intentional red herring.
 
-Why would one pay for more competition against other market makers? Under such a scenario, the spread on an asset at any given time could potentially decrease with more competition (it will certainly never increase), thus we would earn less PnL from market making overall since our fills would be closer to the fair value. Furthermore, empty order-book sides could now potentially have a quote present under this increased market access, thus neutralizing our "hidden taker" quoting strategy that reliably provided PnL in round 1. The only potential upside to this was more taking opportunities for us when a maker crossed the fair value; however this was calculated to be an inconsequential upside compared to the massive PnL haircut we would receive on our other activities.
+Why would one pay for more competition against other market makers? Under such a scenario, the spread on an asset at any given time could potentially decrease with more competition (it will certainly never increase), thus we would earn less PnL from market making overall since our fills would be closer to the fair value. Furthermore, empty order-book sides could now potentially have quotes present under this increased market access, thus neutralizing our "hidden taker" quoting strategy that reliably provided PnL in round 1. The only potential upside to this was more taking opportunities for us when a maker crossed the fair value; however this was calculated to be an inconsequential upside compared to the massive PnL haircut we would receive on our other activities.
 
 The obvious answer became:
 > bid zero.
