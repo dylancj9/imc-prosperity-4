@@ -21,7 +21,7 @@ This writeup shares the strategies, infrastructure, insights, and research proce
           <p><b>Thomas St Ges</b></p>
       </td>
       <td align="center" valign="top" width="200px">
-          <img src="Figures/Dylan_pfp.jpg" width="150;" alt="Member"/>
+          <img src="Figures/Guilhem_pfp.jpg" width="150;" alt="Member"/>
           <br />
           <p><b>Guilhem Doat</b></p>
       </td>
