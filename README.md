@@ -1021,7 +1021,7 @@ The distribution of the bids is **uniformly distributed** at **increments of 5**
 You may submit **two bids**. If the first bid is **higher** than the reserve price, they trade with you at your first bid. If your second bid is **higher** than the reserve price of a counterparty and **higher** than the mean of second bids of all players you trade at your second bid. If your second bid is **higher** than the reserve price, but **lower** than the mean of second bids of all players, the chance of a trade rapidly decreases: you will trade at your second bid **but** your PNL is penalised by 
 
 $$
-\left(\frac{920 - \text{avg\_b2}}{920 - b2}\right)^3
+\left(\frac{920 - \text{avg(b2)}}{920 - b2}\right)^3
 $$
 
 ## 1. Problem setup
@@ -1060,7 +1060,7 @@ where $\overline{b_2}$ is the mean of $b_2$ across *all players* (unknown at sub
 Using the uniform distribution of $R$:
 
 $$
-\mathbb{E}[\pi \mid b_1, b_2] = \frac{1}{51}\Bigl[\,\#\{R \in \mathcal{R} : R < b_1\}\cdot (A - b_1)\;+\;\#\{R \in \mathcal{R} : b_1 \le R < b_2\}\cdot (A - b_2)\cdot P(b_2)\Bigr]
+\mathbb{E}[\pi \mid b_1, b_2] = \frac{1}{51}\Bigl[\{ \text{number of} R \in \mathcal{R} : R < b_1\}\cdot (A - b_1)+\{ \text{number of} R \in \mathcal{R} : b_1 \le R < b_2\}\cdot (A - b_2)\cdot P(b_2)\Bigr]
 $$
 
 Continuous approximation (useful for deriving optima) — replace counts by lengths / 250:
