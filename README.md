@@ -270,7 +270,7 @@ This produced a significantly cleaner and more predictive estimate of fair value
 
 <tr valign="top">
 <td width="100%" align="center">
-  <img src="ash-coated-osmium-wallmid.png"
+  <img src="Figures/ash-coated-osmium-wallmid.png"
        alt="Wall Mid"
        width="100%" />
 </td>
@@ -351,7 +351,7 @@ After a quick Augmented Dickey-Fuller test, we confirmed that it was stationary 
 
 <tr valign="top">
 <td width="100%" align="center">
-  <img src="ash-coated-osmium-market.png"
+  <img src="Figures/ash-coated-osmium-market.png"
        alt="OSMIUM"
        width="100%" />
 </td>
@@ -427,7 +427,7 @@ Unlike OSMIUM, it increased almost deterministically by 0.1 every tick.
 
 <tr valign="top">
 <td width="100%" align="center">
-  <img src="intarian-pepper-root-market"
+  <img src="Figures/intarian-pepper-root-market"
        alt="PEPPER_ROOT"
        width="100%" />
 </td>
@@ -680,7 +680,7 @@ That made the product relatively straightforward compared to what came next.
 
 <tr valign="top">
 <td width="100%" align="center">
-  <img src="hydrogel-pack-market.png"
+  <img src="Figures/hydrogel-pack-market.png"
        alt="HYDRO_GEL"
        width="100%" />
 </td>
@@ -713,7 +713,7 @@ A simple Avellaneda-Stoikov market maker no longer worked well due to:
 
 <tr valign="top">
 <td width="100%" align="center">
-  <img src="velvetfruit-extract-market.png"
+  <img src="Figures/velvetfruit-extract-market.png"
        alt="VELVETFRUIT-EXTRACT"
        width="100%" />
 </td>
@@ -771,7 +771,7 @@ This completely destroyed the standard 'fit parabola → trade IV mispricing' ap
 
 <tr valign="top">
 <td width="100%" align="center">
-  <img src="IV-Smile.png"
+  <img src="Figures/IV-Smile.png"
        alt="IV SMILE"
        width="100%" />
 </td>
