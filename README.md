@@ -54,7 +54,7 @@ Our goal with this document is not only to explain what worked, but also:
 
 IMC Prosperity 4 (2026) was a global quantitative trading competition consisting of 5 rounds across 2 weeks, with more than 30,000 students participating worldwide across almost 19,000 teams.
 
-Participants developed trading algorithms to maximize profits against simulated markets for securities and commodities populated by various bots and hidden behaviors. Over the course of the competition, new products and mechanics were gradually introduced, forcing teams to constantly adapt their strategies and research process. Cumulatively, there were a total of 64 products across the competition, with 50 active during round 5.
+Participants developed trading algorithms to maximize profits against simulated markets for securities and commodities populated by various bots and hidden behaviors. Over the course of the competition, new products and mechanics were gradually introduced, forcing teams to constantly adapt their strategies and research process. Cumulatively, there were a total of 64 products across the competition, with 50 introduced and active during round 5.
 
 The competition touched many areas of quantitative trading and research:
 - market making,
