@@ -1,6 +1,6 @@
 # Une Baguette Fromage 🥖🧀
 
-This write-up shares the strategies, infrastructure, insights, and research process that brought us to **🏆 1st place in Europe, 🏆 4th place globally** out of 18,803 teams in **IMC Prosperity 4 (2026)**, a 5-round international quantitative trading competition with both algorithmic trading and manual quant challenges. Overall, our team was awarded **$3500 prize money** for top performance and achieved a final PnL score of **1,386,318 XIREC**.
+This write-up shares the strategies, research process, and infrastructure that brought us to **🏆 1st place in Europe, 🏆 4th place globally** out of 18,803 teams in **IMC Prosperity 4 (2026)**, a 5-round international quantitative trading competition with both algorithmic trading and manual quant challenges. Overall, our team was awarded **$3,500 prize money** for top performance and achieved a final PnL score of **1,386,318 XIREC**.
 
 <table width="80%">
   <tbody>
@@ -52,7 +52,7 @@ Our goal with this document is not only to explain what worked, but also:
 
 ## IMC Prosperity 4
 
-IMC Prosperity 4 (2026) was a global algorithmic trading competition consisting of multiple rounds across several weeks, with more than 22,000 teams participating worldwide.
+IMC Prosperity 4 (2026) was a global quantitative trading competition consisting of 5 rounds across 2 weeks, with more than 30,000 students participating worldwide across almost 19,000 teams.
 
 Participants developed trading algorithms to maximize profits against simulated markets populated by various bots and hidden behaviors. Over the course of the competition, new products and mechanics were gradually introduced, forcing teams to constantly adapt their strategies and research process.
 
