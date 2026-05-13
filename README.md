@@ -351,7 +351,7 @@ After a quick Augmented Dickey-Fuller test, we confirmed that it was stationary 
 
 <tr valign="top">
 <td width="100%" align="center">
-  <img src="ash-coated-osmium-market"
+  <img src="ash-coated-osmium-market.png"
        alt="OSMIUM"
        width="100%" />
 </td>
