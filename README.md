@@ -124,13 +124,16 @@ On top of the core backtester, we built a heavily customized dashboard environme
 
 <tr valign="top">
 <td width="100%" align="center">
-  <img src="zoomed_out_dashboard.png"
+  <img src="Figures/zoomed_out_dashboard.png"
        alt="Dashboard"
        width="100%" />
 </td>
+</tr>
+
+<tr valign="top">
 <td width="100%" align="center">
-  <img src="analysis_dashboard.png"
-       alt="analysis"
+  <img src="Figures/analysis_dashboard.png"
+       alt="Analysis Dashboard"
        width="100%" />
 </td>
 </tr>
