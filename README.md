@@ -1107,7 +1107,15 @@ $$
 
 Being *slightly* below average hurts **a lot**.
 
-In a Nash-style equilibrium where everyone solves the unconstrained problem, $\overline{b_2}^\star \approx 837$. Bidding at 837 exactly is the coin-flip boundary — some players above, some below. The asymmetry of costs around the optimum (cheap to be slightly low without penalty vs. cubic penalty if you underbid the mean) creates pressure to bid **slightly above** the expected mean.
+In a Nash-style equilibrium where everyone solves the unconstrained problem, $\overline{b_2}^\star \approx 837$. Bidding at 837 exactly is the coin-flip boundary: there would be some players above, some below. The asymmetry of costs around the optimum (cheap to be slightly low without penalty vs. cubic penalty if you underbid the mean) creates pressure to bid **slightly above** the expected mean.
+
+## 5. LLM-based game theory (the come back)
+
+Just as for round 2, we decided base our decision for the average of all $b_2$ bids by probing a large number of times what different LLMs would predict. The prompting startegy is the exact same as for Round 2. The result of our experiment is below, where each line corresponds to a different prompt (models are here all plotted together).
+
+![LLMs bids](Figures/bid_distribution_by_prompt_v2.png)
+
+Using this, it seemed like a safe strategy to bid $(b_1, b_2) = (756, 852)$. The actual average $b_2$ turnmed out to be 859. We made 74,710 XIRECS, ranking 265th.
 
 <br/>
 
