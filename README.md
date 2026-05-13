@@ -1121,7 +1121,7 @@ On top of that, we added a few cross-size lag rules, for example:
 
 Some pebble sizes were therefore mostly plain synthetic market making, while others had a directional regime overlay from those lagged triggers.
 
-So the for the final note:
+So for our final alpha:
 > the PEBBLES alpha in our final bot was a synthetic basket fair-value model with a small amount of hand-tuned intra-family lead-lag logic, not one single elegant standalone edge.
 
 Attribution supports that interpretation quite well: PEBBLES ended up as our strongest Round 5 family at about +22.4k.
