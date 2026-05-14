@@ -1,4 +1,4 @@
-![Team Banner](Scores/banner.png)
+![Team Banner](Figures/banner.png)
 
 # Une Baguette Fromage 🥖🧀
 
@@ -64,7 +64,7 @@ Our goal with this document is not only to explain what worked, but also:
 
 ## IMC Prosperity 4
 
-![Team Banner](Scores/dashboard.png)
+![Team Banner](Figures/dashboard.png)
 
 IMC Prosperity 4 (2026) was a global quantitative trading competition consisting of 5 rounds across 2 weeks, with more than 30,000 students participating worldwide across almost 19,000 teams.
 
