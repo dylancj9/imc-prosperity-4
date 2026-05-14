@@ -108,7 +108,7 @@ Each round also featured a separate manual challenge involving probabilistic rea
 
 # Tools & Infrastructure
 
-One of our earliest decisions was to make sure we did not rely solely on the native IMC tester.
+One of our earliest decisions was to make sure we did not rely solely on the native IMC website tester, as this was very slow processing and represented evaluation on only the first 10% of the most recent day's sample data, which could thus be very misleading (perhaps sometimes by design).
 
 Instead, we forked and heavily extended Jmerle's <a href="https://github.com/jmerle/imc-prosperity-3-backtester"> backtester</a> and <a href="https://github.com/jmerle/imc-prosperity-3-visualizer">visualizer</a> from IMC Prosperity 3.
 
