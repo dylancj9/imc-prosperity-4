@@ -1309,7 +1309,23 @@ The harder part was estimating where the field would place its second bid. Just 
 <table>
 <tr valign="top">
 <td width="100%" align="center">
-  <strong>Figure 16: LLM-Implied Bid Distributions by Prompt Variant</strong>
+  <strong>Figure 16: Claude Opus 4.7 vs GPT 5.4 Second Bid Distributions</strong>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <img src="Figures/round3_b2_distribution_opus_vs_gpt54.png"
+       alt="Second bid distributions for Claude Opus 4.7 and GPT 5.4"
+       width="70%" />
+</td>
+</tr>
+</table>
+
+<table>
+<tr valign="top">
+<td width="100%" align="center">
+  <strong>Figure 17: Claude Bid Distributions by Prompt Variant</strong>
 </td>
 </tr>
 
