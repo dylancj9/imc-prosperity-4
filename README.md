@@ -119,7 +119,7 @@ Having a proper local environment was absolutely essential for us, especially be
 This leaves very little room for slow feedback loops.
 
 The backtester gave us:
-- evaluation on multiple days of sample data
+- evaluation on multiple days of sample data,
 - local exchange simulation,
 - position limits,
 - fair value updates,
