@@ -505,9 +505,9 @@ The best values were:
 - bid adjustment = 4,
 - ask adjustment = 5.
 
-This was clearly not perfect, and we later fixed the modeling issue properly in Round 2.
+This was clearly not perfect, and we later fixed the modeling issue properly in Round 2. But it still outperformed pure buy-and-hold.
 
-But it still outperformed pure buy-and-hold.
+We placed **🏆 9th globally** overall after this round.
 
 <br/>
 
@@ -565,7 +565,7 @@ So for Round 2 we fixed the DP formulation itself by explicitly incorporating:
 
 This produced much cleaner bid and ask thresholds and removed the need for the earlier bid/ask adjustment parameters.
 
-We placed 4th in this round, but the OSMIUM underperformance made it clear that even a good structural model still needed defensive safeguards.
+We placed **🏆 4th globally** overall after this round, but the OSMIUM underperformance made it clear that even a good structural model still needed defensive safeguards.
 
 <br/>
 
