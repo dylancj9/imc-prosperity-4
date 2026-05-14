@@ -1306,7 +1306,21 @@ That baseline already showed why a naive midpoint-style first bid was wrong: max
 
 The harder part was estimating where the field would place its second bid. Just as in Round 2, we treated this as a crowd-modeling problem. We generated multiple prompt variants based on the challenge description, queried LLMs repeatedly through their APIs, and used the resulting bid samples as a proxy for how many teams might reason about the game. This gave us an empirical distribution for likely second bids rather than forcing us to rely on a single guess.
 
-![LLMs bids](Figures/bid_distribution_by_prompt_v2.png)
+<table>
+<tr valign="top">
+<td width="100%" align="center">
+  <strong>Figure 16: LLM-Implied Bid Distributions by Prompt Variant</strong>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <img src="Figures/bid_distribution_by_prompt_v2.png"
+       alt="LLM bid distributions for first and second bids across prompt variants"
+       width="70%" />
+</td>
+</tr>
+</table>
 
 We then fed these estimated average second-bid distributions into our in-house brute-force optimizer and as we did for round 2's manual challenge, we searched for stable optimal parameter "landscapes" across estimated distributions, weighted flagship models much more heavily. For every feasible integer pair `(b1, b2)`, it computed expected profit under the official reserve-price distribution and applied the penalty whenever `b2` fell below the estimated crowd mean. That turned the problem into a best-response search over the full two-dimensional bid grid.
 
