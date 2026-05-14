@@ -1226,7 +1226,7 @@ In practice, we used the official challenge description as a seed prompt and gen
 <table>
 <tr valign="top">
 <td width="100%" align="center">
-  <strong>Figure 14: LLM-Implied Speed Allocation Distribution</strong>
+  <strong>Figure 14: Speed Allocation Distribution Across Various LLMs</strong>
 </td>
 </tr>
 
@@ -1235,12 +1235,6 @@ In practice, we used the official challenge description as a seed prompt and gen
   <img src="Figures/speed_distribution.png"
        alt="Speed allocation distribution by model"
        width="100%" />
-</td>
-</tr>
-
-<tr valign="top">
-<td width="100%" align="center">
-  <em>Repeated GPT and Claude samples under multiple prompt variants produced materially different Speed recommendations, so we used the weighted empirical distributions as a proxy for likely crowd positioning rather than relying on a single model output.</em>
 </td>
 </tr>
 </table>
@@ -1257,12 +1251,6 @@ In practice, we used the official challenge description as a seed prompt and gen
   <img src="Figures/dist_5_4.png"
        alt="GPT-5.4 speed allocation distribution"
        width="100%" />
-</td>
-</tr>
-
-<tr valign="top">
-<td width="100%" align="center">
-  <em>One of the flagship-model priors we weighted most heavily in the final decision: GPT-5.4 recommendations were concentrated primarily in the high-30% to low-40% Speed range.</em>
 </td>
 </tr>
 </table>
