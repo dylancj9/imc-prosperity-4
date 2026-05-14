@@ -4,38 +4,45 @@
 
 This write-up shares the strategies, research, and infrastructure that brought us to **🏆 4th place globally, 🏆 1st place in Europe** out of 18,803 teams in **IMC Prosperity 4 (2026)**, a 5-round international quantitative trading competition with both algorithmic and manual challenges. Overall, our team was awarded **$3,500 prize money** for top performance and achieved a final PnL score of **1,386,318 XIREC**.
 
-<table width="80%">
+<table align="center">
   <tbody>
     <tr>
-      <td align="center" valign="top" width="200px">
+      <td align="center" valign="top" width="200">
         <a href="https://www.linkedin.com/in/jasper-van-der-ende/">
           <img src="Figures/Jasper_pfp.jpg" width="150" alt="Jasper van der Ende"/>
         </a>
         <br />
         <p><b><a href="https://www.linkedin.com/in/jasper-van-der-ende/">Jasper van der Ende</a></b></p>
       </td>
-      <td align="center" valign="top" width="200px">
+      <td align="center" valign="top" width="200">
         <a href="https://www.linkedin.com/in/teun-schuur-1b0b29270/">
           <img src="Figures/Teun_pfp.jpg" width="150" alt="Teun Schuur"/>
         </a>
         <br />
         <p><b><a href="https://www.linkedin.com/in/teun-schuur-1b0b29270/">Teun Schuur</a></b></p>
       </td>
-      <td align="center" valign="top" width="200px">
+      <td align="center" valign="top" width="200">
         <a href="https://www.linkedin.com/in/thomas-stges/">
           <img src="Figures/Thomas_pfp.jpg" width="150" alt="Thomas St Ges"/>
         </a>
         <br />
         <p><b><a href="https://www.linkedin.com/in/thomas-stges/">Thomas St Ges</a></b></p>
       </td>
-      <td align="center" valign="top" width="200px">
+    </tr>
+  </tbody>
+</table>
+
+<table align="center">
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="200">
         <a href="https://www.linkedin.com/in/guilhem-doat-25bb66356/">
           <img src="Figures/Guilhem_pfp2.jpg" width="150" alt="Guilhem Doat"/>
         </a>
         <br />
         <p><b><a href="https://www.linkedin.com/in/guilhem-doat-25bb66356/">Guilhem Doat</a></b></p>
       </td>
-      <td align="center" valign="top" width="200px">
+      <td align="center" valign="top" width="200">
         <a href="https://www.linkedin.com/in/dylan-c-6164b5323/">
           <img src="Figures/Dylan_pfp.jpg" width="150" alt="Dylan Conrad"/>
         </a>
