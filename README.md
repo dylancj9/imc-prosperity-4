@@ -30,7 +30,7 @@ This write-up shares the strategies, research, and infrastructure that brought u
       </td>
       <td align="center" valign="top" width="200px">
         <a href="https://www.linkedin.com/in/guilhem-doat-25bb66356/">
-          <img src="Figures/Guilhem_pfp.jpg" width="150" alt="Guilhem Doat"/>
+          <img src="Figures/Guilhem_pfp2.jpg" width="150" alt="Guilhem Doat"/>
         </a>
         <br />
         <p><b><a href="https://www.linkedin.com/in/guilhem-doat-25bb66356/">Guilhem Doat</a></b></p>
