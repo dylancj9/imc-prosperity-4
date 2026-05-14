@@ -1155,9 +1155,9 @@ At `20,000` units, price `17` also reached `91,000` traded, so the clearing pric
 - **DRYLAND_FLAX:** bid `30` for `9,999`
 - **EMBER_MUSHROOM:** bid `20` for `19,999`
 
-**Total profit: 87,995.10**
+**Total profit: 87,995 XIREC**
 
-This approach worked exactly as intended: we obtained the optimal submission for the challenge and finished **🏆 1st globally** on the manual leaderboard for Round 1.
+This approach worked exactly as intended: we obtained the optimal submission for the challenge and finished **🏆 1st globally** on the manual leaderboard and **🏆 9th globally** overall for Round 1.
 
 <br/>
 
@@ -1166,7 +1166,7 @@ This approach worked exactly as intended: we obtained the optimal submission for
 
 **The challenge:**
 
-The second manual round was a one-shot budget allocation problem. We were given `50,000` XIRECs to distribute across three pillars — **Research**, **Scale**, and **Speed** — with the goal of maximizing final PnL.
+The second manual round was a one-shot budget allocation problem. We were given `50,000` XIREC to distribute across three pillars — **Research**, **Scale**, and **Speed** — with the goal of maximizing final PnL.
 
 Unlike a standard static optimization problem, this challenge had a strategic component: while Research and Scale were deterministic functions of our own allocation, the value of Speed depended on how our choice ranked relative to the rest of the field. That turned the problem into a game-theoretic best-response exercise rather than a simple constrained maximization.
 
@@ -1193,7 +1193,7 @@ In practice, we used the official challenge description as a seed prompt and gen
 ![Speed allocation distribution](Figures/speed_distribution.png)
 ![GPT 5.4 dist](Figures/dist_5_4.png)
 
-We then fed these sampled crowd distributions into our in-house brute-force optimizer. For each candidate Speed value from `0` to `100`, the optimizer estimated the corresponding expected rank-based multiplier against the sampled field, then enumerated every feasible integer `(Research, Scale)` pair satisfying the budget constraint and selected the allocation with the highest expected PnL. In our final decision, we weighted GPT 5.4 and Claude Opus 4.7 most heavily, since they were the flagship public chatbot models at the time.
+We then fed these sampled crowd distributions into our in-house brute-force optimizer. For each candidate Speed value from `0` to `100`, the optimizer estimated the corresponding expected rank-based multiplier against the sampled field, then enumerated every feasible integer `(Research, Scale)` pair satisfying the budget constraint and selected the allocation with the highest expected PnL. In our final decision, we searched for stable optimal parameter "landscapes" and weighted GPT 5.4 and Claude Opus 4.7 distributions most heavily, since they were the flagship public chatbot models at the time.
 
 **Final submission**
 
@@ -1203,121 +1203,61 @@ We then fed these sampled crowd distributions into our in-house brute-force opti
 
 **Result**
 
-This approach worked exceptionally well for us. As one of only a few teams to reach the optimal submission for this challenge, we finished **🏆 1st globally** in manual trading across Phase 1 (Rounds 1 and 2).
+This approach worked exceptionally well and generated us a PnL of 217,869 for this manual challenge alone! As one of only a few teams to reach the optimal submission for this challenge, we finished **🏆 1st globally** in manual trading and **🏆 4th globally** overall for Phase 1 (Rounds 1 and 2).
 
 <br/>
 
-# Round 3 Manual trading challenge: “The Celestial Gardeners’ Guild”
+<a id="manual-round-3"></a>
+## Round 3: The Celestial Gardeners' Guild
 
-You trade against a number of counterparties that all have a **reserve price** ranging between **670** and **920**. On the next trading day, you’re able to sell all the product for a fair price, **920**.
+**The challenge:**
 
-The distribution of the bids is **uniformly distributed** at **increments of 5** between **670** and **920**. 
+The third manual round was a two-bid pricing problem against a population of counterparties with unknown reserve prices. Each counterparty’s reserve price was uniformly distributed between `670` and `920` in increments of `5`, and any units we bought could be resold the next trading day for a fixed fair value of `920`.
 
-<aside>
-📃
+At first glance this looked like a simple expected-value problem, but the second bid introduced a strategic layer. While the first bid depended only on the reserve-price distribution, the value of the second bid also depended on how it compared with the **average second bid submitted by the rest of the field**.
 
-**Example**: counterparties may have reserve prices at 675 and 680, but not at 676, 677, 678, 679, etc..
+**Key mechanics**
 
-</aside>
-
-You may submit **two bids**. If the first bid is **higher** than the reserve price, they trade with you at your first bid. If your second bid is **higher** than the reserve price of a counterparty and **higher** than the mean of second bids of all players you trade at your second bid. If your second bid is **higher** than the reserve price, but **lower** than the mean of second bids of all players, the chance of a trade rapidly decreases: you will trade at your second bid **but** your PNL is penalised by 
-
-$$
-\left(\frac{920 - \text{avg(b2)}}{920 - b2}\right)^3
-$$
-
-## 1. Problem setup
-
-We bid to buy a product from many counterparties. Each counterparty has a hidden reserve price $R$ drawn uniformly from the grid
-
-$$\mathcal{R} = \{670, 675, 680, \dots, 915, 920\} \quad (|\mathcal{R}| = 51)$$
-
-Anything bought is resold at $A = 920$. We submit **two bids** $b_1 < b_2$.
-
-Per counterparty:
+- We could submit **two bids**, `b1` and `b2`, with `b1 < b2`.
+- If a counterparty’s reserve price was below `b1`, we traded at `b1`.
+- If the reserve price was between `b1` and `b2`, we traded at `b2`.
+- If `b2` was **above the field’s average second bid**, that second-bid trade earned the full margin `920 - b2`.
+- If `b2` was **below the field average**, the second-bid payoff was penalized by
 
 $$
-\text{profit}(R;\, b_1, b_2) =
-\begin{cases}
-A - b_1 & \text{if } R < b_1 \\
-(A - b_2) \cdot P(b_2) & \text{if } b_1 \le R < b_2 \\
-0 & \text{if } R \ge b_2
-\end{cases}
+\left(\frac{920 - \text{avg}(b_2)}{920 - b_2}\right)^3
 $$
 
-with the **penalty factor**
+That penalty made the problem highly asymmetric: being slightly too low on the second bid could hurt much more than being slightly too high.
 
-$$
-P(b_2) =
-\begin{cases}
-1 & \text{if } b_2 \ge \overline{b_2} \\
-\left( \dfrac{A - \overline{b_2}}{A - b_2} \right)^3 & \text{if } b_2 < \overline{b_2}
-\end{cases}
-$$
+**Our strategy**
 
-where $\overline{b_2}$ is the mean of $b_2$ across *all players* (unknown at submission time).
+We started by solving the single-agent version of the problem under the assumption that our second bid would not be penalized. That gave a useful baseline for how the two bids should relate to each other.
 
-## 2. Expected profit per counterparty
+The key insight was that the two bids were **coupled**. The first bid could not be optimized independently of the second. If we write expected profit as the sum of profit from reserves filled at `b1` and profit from reserves filled only at `b2`, the unconstrained optimum implies a structure of the form:
 
-Using the uniform distribution of $R$:
+- `b1` should sit roughly halfway between the lower bound `670` and `b2`
+- the joint optimum lands near `(753, 837)`
+- on the discrete grid, the best unpenalized pairs sit around `(751, 835)` or `(751, 840)`
 
-$$
-\mathbb{E}[\pi \mid b_1, b_2] = \frac{1}{51}\Bigl[\{ \text{number of} R \in \mathcal{R} : R < b_1\}\cdot (A - b_1)+\{ \text{number of} R \in \mathcal{R} : b_1 \le R < b_2\}\cdot (A - b_2)\cdot P(b_2)\Bigr]
-$$
+That baseline already showed why a naive midpoint-style first bid was wrong: maximizing the first leg in isolation left meaningful expected profit on the table.
 
-Continuous approximation (useful for deriving optima) — replace counts by lengths / 250:
-
-$$
-\mathbb{E}[\pi] \;\approx\; \frac{(b_1 - 670)(A - b_1) \;+\; (b_2 - b_1)(A - b_2)\, P(b_2)}{250}
-$$
-
-## 3. Joint optimum (ignoring the penalty, i.e. assuming $b_2 \ge \overline{b_2}$)
-
-Taking partials and setting to zero:
-
-$$
-\frac{\partial \mathbb{E}[\pi]}{\partial b_1} = 0 \;\Rightarrow\; b_1^\star = \tfrac{1}{2}(670 + b_2)
-$$
-
-$$
-\frac{\partial \mathbb{E}[\pi]}{\partial b_2} = 0 \;\Rightarrow\; b_2^\star = \tfrac{1}{2}(A + b_1) = \tfrac{1}{2}(920 + b_1)
-$$
-
-Solving the system:
-
-$$
-b_1^\star \approx 753.3,\qquad b_2^\star \approx 836.7,\qquad \mathbb{E}[\pi^\star] \approx 83.3
-$$
-
-On the discrete integer grid, the top of the flat ridge is $(b_1, b_2) = (751, 835)$ or $(751, 840)$, both yielding $\mathbb{E}[\pi] = 83.0$.
-
-Strategic takeaway #1 — the coupling
-
-$b_1$ and $b_2$ **cannot** be optimised independently. Optimising only the "$b_1$-leg" gives $b_1 = 795$ (midpoint of 670 and 920), which leaves ~6% expected profit on the table. The correct rule is
-
-$$
-b_1 \approx \frac{670 + b_2}{2}
-$$
-
-## 4. The penalty and the game-theory layer
-
-The penalty is cubic: if $b_2 = \overline{b_2} - 10$, the $b_2$-leg profit drops by roughly
-
-$$
-\left( \frac{A - \overline{b_2}}{A - (\overline{b_2} - 10)} \right)^3 \approx 30\%
-$$
-
-Being *slightly* below average hurts **a lot**.
-
-In a Nash-style equilibrium where everyone solves the unconstrained problem, $\overline{b_2}^\star \approx 837$. Bidding at 837 exactly is the coin-flip boundary: there would be some players above, some below. The asymmetry of costs around the optimum (cheap to be slightly low without penalty vs. cubic penalty if you underbid the mean) creates pressure to bid **slightly above** the expected mean.
-
-## 5. LLM-based game theory (the come back)
-
-Just as for round 2, we decided base our decision for the average of all $b_2$ bids by probing a large number of times what different LLMs would predict. The prompting startegy is the exact same as for Round 2. The result of our experiment is below, where each line corresponds to a different prompt (models are here all plotted together).
+The harder part was estimating where the field would place its second bid. Just as in Round 2, we treated this as a crowd-modeling problem. We generated multiple prompt variants based on the challenge description, queried LLMs repeatedly through their APIs, and used the resulting bid samples as a proxy for how many teams might reason about the game. This gave us an empirical distribution for likely second bids rather than forcing us to rely on a single guess.
 
 ![LLMs bids](Figures/bid_distribution_by_prompt_v2.png)
 
-Using this, it seemed like a safe strategy to bid $(b_1, b_2) = (756, 852)$. The actual average $b_2$ turnmed out to be 859. We made 74,710 XIRECS, ranking 265th.
+We then fed these estimated average second-bid distributions into our in-house brute-force optimizer and as we did for round 2's manual challenge, we searched for stable optimal parameter "landscapes" across estimated distributions, weighted flagship models much more heavily. For every feasible integer pair `(b1, b2)`, it computed expected profit under the official reserve-price distribution and applied the penalty whenever `b2` fell below the estimated crowd mean. That turned the problem into a best-response search over the full two-dimensional bid grid.
+
+The main conclusion was that while the unpenalized optimum sat near the low-`840`s, the cubic downside for underbidding the crowd justified submitting a second bid **slightly above** our estimated field average. We therefore shifted upward from the pure single-agent optimum and chose a more defensive pair.
+
+**Final submission**
+
+- **First bid:** `756`
+- **Second bid:** `852`
+
+**Result**
+
+The realized average second bid was `859`, so our second bid ended up slightly below the field. Even so, the submission performed reasonably well and earned us a PnL of **74,710 XIREC**, which placed us **🏆 3rd globally** overall for Round 3 (note: leaderboard progress was reset following Phase 1 qualifiers, so this was effectively completely fresh performance).
 
 <br/>
 
