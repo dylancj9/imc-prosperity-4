@@ -814,12 +814,6 @@ This completely destroyed the standard 'fit parabola → trade IV mispricing' ap
        width="100%" />
 </td>
 </tr>
-
-<tr valign="top">
-<td width="100%" align="center">
-  <em>Typical VELVETFRUIT_EXTRACT orderbook behavior.</em>
-</td>
-</tr>
 </table>
 
 Instead, we concluded the options were essentially priced fairly.
