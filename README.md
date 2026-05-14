@@ -1,3 +1,5 @@
+![Team Banner](Scores/banner.png)
+
 # Une Baguette Fromage 🥖🧀
 
 This write-up shares the strategies, research, and infrastructure that brought us to **🏆 1st place in Europe, 🏆 4th place globally** out of 18,803 teams in **IMC Prosperity 4 (2026)**, a 5-round international quantitative trading competition with both algorithmic trading and manual quant challenges. Overall, our team was awarded **$3,500 prize money** for top performance and achieved a final PnL score of **1,386,318 XIREC**.
