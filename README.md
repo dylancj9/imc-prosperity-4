@@ -530,9 +530,9 @@ Why would a rational team want to PAY for more market maker competition, let alo
 The obvious answer became:
 > bid zero.
 
-In fact, we initially wanted to bid negative infinity since we expected other rational participants to bid 0 or lower as well (we wanted to avoid extra market access no matter what; and as an added bonus, if more than 50% of players thought like us and also bid negative infinity, we could all win the round with infinite PnL). However after we inquired about this to the IMC Prosperity team, it was later publicly clarified that negative bids would default to 0.
+Though, we initially wanted to bid negative infinity since we expected other rational participants to bid 0 or lower as well (we wanted to avoid extra market access no matter what; and as an added bonus, if more than 50% of players thought like us and also bid negative infinity, we thought we could all win the round with infinite PnL). However, after we inquired about this to the IMC Prosperity team, it was later publicly clarified that negative bids would default to 0.
 
-Yet, as announced by the IMC Prosperity team after the round concluded, the median bid among all participants was 50. So while we fortunately did not get extra market access as we desired, the majority of participants did not identify that this was actually a net negative and still chose to bid a non-zero value.
+Yet, following the round, the IMC Prosperity team announced that the median bid among all participants was 50. So while we fortunately did not get extra market access as we had desired, the majority of participants did not identify that this was actually a net negative and still chose to bid a non-zero value.
 
 <br/>
 
