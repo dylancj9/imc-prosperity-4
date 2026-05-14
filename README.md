@@ -1369,13 +1369,21 @@ At the product level, our reasoning was as follows:
 
 - **No position in Scoria Paste**  
   We passed on Scoria Paste because the headline was driven mostly by celebrity-style macro commentary rather than a hard product-specific catalyst. Given the fee schedule, that did not look strong enough to justify capital.
+  
+**Final submission**
 
-**Portfolio summary**
+- **SELL** `8%` **Ashes of the Phoenix**
+- **BUY** `3%` **Magma Ink**
+- **SELL** `5%` **Volcanic Incense**
+- **SELL** `25%` **Lava Cake**
+- **SELL** `4%` **Pyroflex Cells**
+- **BUY** `20%` **Obsidian Cutlery**
+- **BUY** `10%` **Thermalite Core**
+- **BUY** `3%` **Sulfur Reactor**
 
 - **Budget used:** `78%`
 - **Investment:** `780,000 XIREC`
 - **Fees:** `124,800 XIREC`
-- **Manual trading PnL:** `99,373 XIREC`
 
 **Result**
 
