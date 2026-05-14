@@ -1203,7 +1203,7 @@ We then fed these sampled crowd distributions into our in-house brute-force opti
 
 **Result**
 
-This approach worked exceptionally well and generated us a PnL of 217,869 for this manual challenge alone! As one of only a few teams to reach the optimal submission for this challenge, we finished **🏆 1st globally** in manual trading and **🏆 4th globally** overall for Phase 1 (Rounds 1 and 2).
+This approach worked exceptionally well and generated us a PnL of **217,869 XIREC** for this manual challenge alone! As one of only a few teams to reach the optimal submission for this challenge, we finished **🏆 1st globally** in manual trading and **🏆 4th globally** overall for Phase 1 (Rounds 1 and 2).
 
 <br/>
 
@@ -1310,7 +1310,7 @@ From there, we iterated between frontier analysis and basket cleaning. The goal 
 
 **Result**
 
-This round was much tougher for us than the first three. Our submitted basket had a modeled expected PnL of 164,864 XIREC, with a batch-100 CVaR 5% of -358,576 XIREC and a batch-100 5th percentile outcome of -259,614 XIREC. In other words, it captured about 97.4% of the maximum modeled EV on our frontier while taking only about 30.4% of the max-EV basket's CVaR 5% downside. However, the realized outcome was only 36,929 XIREC, which dropped us to **🏆 11th globally overall** after Round 4.
+This round was much tougher for us than the first three. Our submitted basket had a modeled expected PnL of **164,864 XIREC**, with a batch-100 CVaR 5% of -358,576 XIREC and a batch-100 5th percentile outcome of -259,614 XIREC. In other words, it captured about 97.4% of the maximum modeled EV on our frontier while taking only about 30.4% of the max-EV basket's CVaR 5% downside. However, the realized outcome was only **36,929 XIREC**, which dropped us to **🏆 11th globally overall** after Round 4.
 
 In retrospect, we almost certainly over-hedged. The strongest baskets along the efficient frontier were highly correlated and differed mostly in hedge intensity, so a lighter risk constraint would probably have preserved more of the shared positive edge. Given that IMC was likely to evaluate the round using a reasonably representative seed rather than an extreme left-tail path, we think we paid too much to insure against outcomes that were unlikely to determine the final ranking. That trade-off may make sense in real portfolio risk management, but for this competition it likely reduced our upside far more than it improved our true expected result.
 
