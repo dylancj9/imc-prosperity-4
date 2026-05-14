@@ -530,7 +530,7 @@ Why would one pay for more competition against other market makers? Under such a
 The obvious answer became:
 > bid zero.
 
-Fun fact: we initially wanted to bid negative infinity since we expected other rational participants to bid 0 or lower as well (we wanted to avoid more competition no matter what; and as an added bonus, if more than 50% of players thought like us and bid negative infinity, we could all win the game with infinite PnL). However after we inquired about this to the IMC Prosperity team, it was later publicly clarified that negative bids would default to 0.
+Fun fact: we initially wanted to bid negative infinity since we expected other rational participants to bid 0 or lower as well (we wanted to avoid extra market access no matter what; and as an added bonus, if more than 50% of players thought like us and bid negative infinity, we could all win the game with infinite PnL). However after we inquired about this to the IMC Prosperity team, it was later publicly clarified that negative bids would default to 0.
 
 Yet, as announced by the IMC Prosperity team after the round concluded, the median bid among all participants was 50. So while we fortunately did not get extra market access, the majority of participants did not identify that this was actually a net negative.
 
