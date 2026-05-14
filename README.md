@@ -517,7 +517,7 @@ The best values were:
 
 This was clearly not perfect, and we later fixed the modeling issue properly in Round 2. But it still outperformed pure buy-and-hold.
 
-We placed **🏆 9th globally** overall after this round.
+Round 1 closed with a cumulative score of **207,308 XIREC**, good for **🏆 8th globally overall**. On the pure algorithmic leaderboard, we scored **119,313 XIREC** and finished **🏆 8th algorithmic**.
 
 <br/>
 
@@ -575,7 +575,7 @@ So for Round 2 we fixed the DP formulation itself by explicitly incorporating:
 
 This produced much cleaner bid and ask thresholds and removed the need for the earlier bid/ask adjustment parameters.
 
-We placed **🏆 4th globally** overall after this round, but the OSMIUM underperformance made it clear that even a good structural model still needed defensive safeguards.
+Round 2 closed with a cumulative score of **528,132 XIREC**, good for **🏆 4th globally overall**. On the pure algorithmic leaderboard, we scored **102,954 XIREC** and finished **🏆 14th algorithmic**. The OSMIUM underperformance still made it clear that even a good structural model needed defensive safeguards.
 
 <br/>
 
@@ -670,6 +670,25 @@ This effectively recreated hidden-taker opportunities.
 Of course, this came with a tradeoff:
 - clearing the book imposed an immediate adverse execution cost,
 - so the expected taker fill had to be strong enough to justify it.
+
+Operationally, the decision rule was just an expected-value filter.
+
+If:
+- c_clear = immediate cost of clearing visible liquidity
+- p_repeat = probability that the recurring taker actually reappears
+- q = expected taker size
+- edge = expected edge captured per unit when our extreme quote gets hit
+
+then we only triggered the setup when
+
+> p_repeat * q * edge > c_clear
+
+usually with an extra buffer for inventory risk and model error.
+
+So the setup was not "predict a taker, always clear the book."
+It was "predict a taker, estimate whether the expected refill value exceeds the certain cost of manufacturing the empty side, and only fire when that inequality is comfortably positive."
+
+For large OSMIUM takers in Round 2, the recurrence probability was high enough that this inequality often held, which made the strategy meaningfully monetizable rather than just statistically interesting.
 
 <br/>
 
@@ -814,6 +833,8 @@ We also briefly investigated whether certain bot trades in lower strikes such as
 
 In retrospect, this was mostly an artifact of the underlying itself being mean reverting rather than a genuinely distinct signal.
 
+Round 3 closed with a cumulative score of **373,440 XIREC**, good for **🏆 3rd globally overall**. On the pure algorithmic leaderboard, we scored **298,730 XIREC** and finished **🏆 3rd algorithmic**.
+
 <br/>
 
 ## Round 4
@@ -863,6 +884,8 @@ Most Marks turned out to be far less informative than we initially hoped.
 There was a lot of temptation to build broad Mark-conditioned strategies, but for all Marks the signal was either too weak, too unstable, or too hard to monetize in real time.
 
 So, no Mark-based strategies made it into the final submission, and we instead focused on improving our existing market making and option trading strategies.
+
+Round 4 closed with a cumulative score of **602,022 XIREC**, good for **🏆 11th globally overall**. On the pure algorithmic leaderboard, we scored **191,652 XIREC** and finished **🏆 10th algorithmic**.
 
 <br/>
 
@@ -1112,6 +1135,8 @@ In the end:
 - and layered only a small number of specific alphas on top.
 
 Ironically, a few components we still suspected might be slightly overfit ended up live anyway, simply because at some point you have to stop researching and submit.
+
+Round 5 closed with a cumulative score of **1,386,318 XIREC**, good for **🏆 4th globally overall**. On the pure algorithmic leaderboard, we scored **684,923 XIREC** and finished **🏆 4th algorithmic**.
 
 <br/>
 
