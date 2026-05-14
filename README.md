@@ -798,10 +798,10 @@ Initially, we expected IV surface trading opportunities similar to Prosperity 3.
 
 However, analysis revealed:
 - implied volatility remained almost constant,
-- per option,
+- on a per-option basis,
 - throughout each day.
 
-This completely destroyed the standard 'fit parabola → trade IV mispricing' approach.
+This largely killed the standard "fit parabola → trade IV mispricing" approach, since there was very little cross-strike relative-value dislocation to monetize.
 
 <table>
 <tr valign="top">
@@ -819,22 +819,13 @@ This completely destroyed the standard 'fit parabola → trade IV mispricing' ap
 </tr>
 </table>
 
-Instead, we concluded the options were essentially priced fairly.
+Instead, we treated the options primarily as a way to express and leverage our mean-reversion view on the underlying. We estimated each option's fair value with Black-Scholes, using that strike's average implied volatility for the day, and then evaluated the option at the underlying OU thresholds around `5250 ± 18`. That gave us threshold prices for when calls were attractive to buy in bullish regimes or attractive to sell in bearish regimes.
 
-Therefore:
-- the options themselves contained little standalone alpha,
-- but they could still be used to leverage mean reversion exposure on the underlying.
+We did also market-make one option, **VEV_4000**, because it was the only strike where quoting passively looked consistently worthwhile. It had enough trading activity and balanced enough two-sided flow to support inventory-managed market making, so we could quote around fair value while still controlling exposure. We did **not** extend the same MM approach to the other VEV products because they were generally worse quoting candidates: some did not trade often enough, some produced mostly one-sided fills, and some had spreads that were simply too small to justify the adverse-selection risk.
 
-The resulting thresholds were computed through:
-- Black-Scholes pricing,
-- using each option's average IV for that day,
-- and evaluating the underlying at the OU thresholds around 5250 ± 18.
+We also briefly investigated whether certain bot trades in lower strikes, especially **VEV_4000** near rolling extrema, were predictive of reversals. In retrospect, this was mostly an artifact of the underlying itself being mean reverting rather than a genuinely distinct signal, but it was still useful enough to inform parts of the live strategy.
 
-We also briefly investigated whether certain bot trades in lower strikes such as VEV_4000 near rolling extrema were predictive of reversals.
-
-In retrospect, this was mostly an artifact of the underlying itself being mean reverting rather than a genuinely distinct signal.
-
-Round 3 closed with a cumulative score of **373,440 XIREC**, good for **🏆 3rd globally overall**. On the pure algorithmic leaderboard, we scored **298,730 XIREC** and finished **🏆 3rd algorithmic** (note: leaderboard progress was reset following Round 2 since these were now finals, so this was effectively completely fresh performance).
+Round 3 closed with a cumulative score of **373,440 XIREC**, good for **🏆 3rd globally overall**. On the pure algorithmic leaderboard, we scored **298,730 XIREC** and finished **🏆 3rd algorithmic**.
 
 <br/>
 
