@@ -834,7 +834,7 @@ We also briefly investigated whether certain bot trades in lower strikes such as
 
 In retrospect, this was mostly an artifact of the underlying itself being mean reverting rather than a genuinely distinct signal.
 
-Round 3 closed with a cumulative score of **373,440 XIREC**, good for **🏆 3rd globally overall**. On the pure algorithmic leaderboard, we scored **298,730 XIREC** and finished **🏆 3rd algorithmic**.
+Round 3 closed with a cumulative score of **373,440 XIREC**, good for **🏆 3rd globally overall**. On the pure algorithmic leaderboard, we scored **298,730 XIREC** and finished **🏆 3rd algorithmic** (note: leaderboard progress was reset following Round 2 since these were now finals, so this was effectively completely fresh performance).
 
 <br/>
 
