@@ -1290,13 +1290,13 @@ The first lesson, however, was that pure expected-value optimization was not eno
 
 We therefore moved to a risk-aware portfolio search. Using simulated payoff paths for the full contract set, we evaluated baskets on the same batch-100 basis used by the competition and traced out an expected-value versus CVaR frontier. That made the trade-off explicit: the top of the frontier was relatively flat, so a modest sacrifice in modeled EV could buy a meaningful reduction in downside risk.
 
-![Optimal EV vs CVaR frontier](Figures/round4_optimal_ev_vs_cvar_curve_writeup.png)
+![Optimal EV vs CVaR frontier](Figures/round4_optimal_ev_vs_cvar_curve.png)
 
 We then expanded the optimization universe to include the underlying and all vanilla contracts, even when some had little standalone edge, because they were valuable as static hedges for the exotics. In particular, the chooser option could be replicated exactly by a **3-week at-the-money call plus a 2-week at-the-money put**, so the optimizer could use vanillas to hedge chooser exposure instead of treating it as a purely directional bet. This turned the problem into a basket-construction exercise rather than a simple ranking of individual mispricings.
 
 From there, we iterated between frontier analysis and basket cleaning. The goal was not to find the single most aggressive positive-EV portfolio, but to find a basket whose risk profile still made sense under the competition's averaging rule. The final submission kept the core mispriced positions, but paired the exotic shorts with vanilla hedges and removed some of the worst naked downside.
 
-![Basket outcome distribution](Figures/round4_writeup_basket_distribution.png)
+![Basket outcome distribution](Figures/round4_basket_distribution.png)
 
 **Final submission**
 
@@ -1310,7 +1310,7 @@ From there, we iterated between frontier analysis and basket cleaning. The goal 
 
 **Result**
 
-This round was much tougher for us than the first three. Our simulations still put the final basket's mean PnL at roughly **160,000 XIREC**, but the realized outcome was only **36,929 XIREC**, which was far below the model's central expectation and dropped us to **11th globally overall** after Round 4.
+This round was much tougher for us than the first three. Our simulations still put the final basket's mean PnL at roughly **160,000 XIREC**, but the realized outcome was only **36,929 XIREC**, which was far below the model's central expectation and dropped us to **🏆 11th globally overall** after Round 4.
 
 In retrospect, the main lesson was not that risk control was wrong, but that we likely pushed too hard toward extreme tail protection. Many of the strongest candidate baskets were structurally very similar and mainly differed by hedge intensity, so a milder risk constraint or simpler basket-cleaning rule might have preserved more upside without materially increasing true competition risk.
 
