@@ -635,7 +635,7 @@ So we modeled these transitions as a Markov-style recurrence process across prod
 
 The round-to-round difference was especially noticeable:
 - this recurring-actor behavior was very strong in Round 2,
-- and much weaker in Round 1.
+- and virtually non-existent in Round 1.
 
 For OSMIUM:
 - takers with size ≥ 7
