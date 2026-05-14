@@ -119,6 +119,7 @@ Having a proper local environment was absolutely essential for us, especially be
 This leaves very little room for slow feedback loops.
 
 The backtester gave us:
+- evaluation on multiple days of sample data
 - local exchange simulation,
 - position limits,
 - fair value updates,
@@ -127,7 +128,7 @@ The backtester gave us:
 
 without needing to constantly submit to the official platform.
 
-Being able to run hundreds of local simulations in minutes instead of waiting on the website queue was a massive advantage.
+Being able to run dozens of local simulations in minutes instead of waiting on the website queue was a massive advantage.
 
 <br/>
 
