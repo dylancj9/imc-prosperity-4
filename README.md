@@ -1223,8 +1223,49 @@ To approximate the crowd, we made a simple but effective assumption: many teams 
 
 In practice, we used the official challenge description as a seed prompt and generated six prompt variants corresponding to different player archetypes. We then queried several models, primarily GPT and Claude, repeatedly through their APIs, collected the resulting allocations, and compiled them into CSVs. This gave us empirical crowd priors for likely Speed choices under different LLM assumptions.
 
-![Speed allocation distribution](Figures/speed_distribution.png)
-![GPT 5.4 dist](Figures/dist_5_4.png)
+<table>
+<tr valign="top">
+<td width="100%" align="center">
+  <strong>Figure 14: LLM-Implied Speed Allocation Distribution</strong>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <img src="Figures/speed_distribution.png"
+       alt="Speed allocation distribution by model"
+       width="100%" />
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <em>Repeated GPT and Claude samples under multiple prompt variants produced materially different Speed recommendations, so we used the weighted empirical distributions as a proxy for likely crowd positioning rather than relying on a single model output.</em>
+</td>
+</tr>
+</table>
+
+<table>
+<tr valign="top">
+<td width="100%" align="center">
+  <strong>Figure 15: GPT-5.4 Speed Allocation Distribution</strong>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <img src="Figures/dist_5_4.png"
+       alt="GPT-5.4 speed allocation distribution"
+       width="100%" />
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <em>One of the flagship-model priors we weighted most heavily in the final decision: GPT-5.4 recommendations were concentrated primarily in the high-30% to low-40% Speed range.</em>
+</td>
+</tr>
+</table>
 
 We then fed these sampled crowd distributions into our in-house brute-force optimizer. For each candidate Speed value from `0` to `100`, the optimizer estimated the corresponding expected rank-based multiplier against the sampled field, then enumerated every feasible integer `(Research, Scale)` pair satisfying the budget constraint and selected the allocation with the highest expected PnL. In our final decision, we searched for stable optimal parameter "landscapes" and weighted GPT 5.4 and Claude Opus 4.7 distributions most heavily, since they were the flagship public chatbot models at the time.
 
