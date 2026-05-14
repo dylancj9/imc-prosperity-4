@@ -692,7 +692,9 @@ usually with an extra buffer for inventory risk and model error.
 So the setup was not "predict a taker, always clear the book."
 It was "predict a taker, estimate whether the expected refill value exceeds the certain cost of manufacturing the empty side, and only fire when that inequality is comfortably positive."
 
-For large OSMIUM takers in Round 2, the recurrence probability was high enough that this inequality often held, which made the strategy meaningfully monetizable rather than just statistically interesting.
+Although the same recurrence decision-making framework applied across both OSMIUM and PEPPER_ROOT, the economic value was concentrated most heavily in the large OSMIUM takers in Round 2. Those events combined exceptionally high repeat probabilities with enough size that, after clearing the book and reposting, the expected refill value still comfortably exceeded the certain execution cost.
+
+In backtests, had we identified and deployed this signal during Round 2 itself, we estimate it would have added roughly 70,000-100,000 XIREC of additional PnL, nearly doubling our algorithm's PnL for the round. Unfortunately, the same behavior did not persist into the final rounds, so while this intermission research did uncover a real alpha source, it did not become the generalized Phase 2 signal we had hoped for. Even so, it remained one of the most interesting findings from the project, and likely would have put us even farther ahead in Phase 1 had we discovered it in time.
 
 <br/>
 
