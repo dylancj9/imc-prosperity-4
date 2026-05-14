@@ -1192,7 +1192,7 @@ At `20,000` units, price `17` also reached `91,000` traded, so the clearing pric
 
 **Total profit: 87,995 XIREC**
 
-This approach worked exactly as intended: we obtained the optimal submission for the challenge and finished **🏆 1st globally** on the manual leaderboard and **🏆 9th globally** overall for Round 1.
+This approach worked exactly as intended: we obtained the optimal submission for the challenge and finished **🏆 1st globally** on the manual leaderboard and **🏆 8th globally** overall for Round 1.
 
 <br/>
 
