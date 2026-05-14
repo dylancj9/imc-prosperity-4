@@ -1382,13 +1382,41 @@ The first lesson, however, was that pure expected-value optimization was not eno
 
 We therefore moved to a risk-aware portfolio search. Using simulated payoff paths for the full contract set, we evaluated baskets on the same batch-100 basis used by the competition and traced out an expected-value versus CVaR frontier. That made the trade-off explicit: the top of the frontier was relatively flat, so a modest sacrifice in modeled EV could buy a meaningful reduction in downside risk.
 
-![Optimal EV vs CVaR frontier](Figures/round4_optimal_ev_vs_cvar_curve.png)
+<table>
+<tr valign="top">
+<td width="100%" align="center">
+  <strong>Figure 18: Round 4 Optimal EV vs CVaR Frontier</strong>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <img src="Figures/round4_optimal_ev_vs_cvar_curve.png"
+       alt="Round 4 optimal EV versus CVaR frontier"
+       width="100%" />
+</td>
+</tr>
+</table>
 
 We then expanded the optimization universe to include the underlying and all vanilla contracts, even when some had little standalone edge, because they were valuable as static hedges for the exotics. In particular, the chooser option could be replicated exactly by a **3-week at-the-money call plus a 2-week at-the-money put**, so the optimizer could use vanillas to hedge chooser exposure instead of treating it as a purely directional bet. This turned the problem into a basket-construction exercise rather than a simple ranking of individual mispricings.
 
 From there, we iterated between frontier analysis and basket cleaning. The goal was not to find the single most aggressive positive-EV portfolio, but to find a basket whose risk profile still made sense under the competition's averaging rule. The final submission kept the core mispriced positions, but paired the exotic shorts with vanilla hedges and removed some of the worst naked downside.
 
-![Basket outcome distribution](Figures/round4_basket_distribution.png)
+<table>
+<tr valign="top">
+<td width="100%" align="center">
+  <strong>Figure 19: Round 4 Basket Outcome Distribution</strong>
+</td>
+</tr>
+
+<tr valign="top">
+<td width="100%" align="center">
+  <img src="Figures/round4_basket_distribution.png"
+       alt="Round 4 basket outcome distribution"
+       width="100%" />
+</td>
+</tr>
+</table>
 
 **Final submission**
 
