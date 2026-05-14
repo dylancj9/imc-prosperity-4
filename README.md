@@ -1,4 +1,4 @@
-![Team Banner](Figures/banner.png)
+![Team Banner](Figures/team_banner.png)
 
 # Une Baguette Fromage 🥖🧀
 
