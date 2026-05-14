@@ -1257,7 +1257,7 @@ The main conclusion was that while the unpenalized optimum sat near the low-`840
 
 **Result**
 
-The realized average second bid was `859`, so our second bid ended up slightly below the field. Even so, the submission performed reasonably well and earned us a PnL of **74,710 XIREC**, which placed us **🏆 3rd globally** overall for Round 3 (note: leaderboard progress was reset following Phase 1 qualifiers, so this was effectively completely fresh performance).
+The realized average second bid was `859`, so our second bid ended up slightly below the field. Even so, the submission performed reasonably well and earned us a PnL of **74,710 XIREC**, which placed us **🏆 3rd globally** overall for Round 3 (note: leaderboard progress was reset following Round 2 since these were now finals, so this was effectively completely fresh performance).
 
 <br/>
 
@@ -1310,9 +1310,9 @@ From there, we iterated between frontier analysis and basket cleaning. The goal 
 
 **Result**
 
-This round was much tougher for us than the first three. Our simulations still put the final basket's mean PnL at roughly **160,000 XIREC**, but the realized outcome was only **36,929 XIREC**, which was far below the model's central expectation and dropped us to **🏆 11th globally overall** after Round 4.
+This round was much tougher for us than the first three. Our submitted basket had a modeled expected PnL of 164,864 XIREC, with a batch-100 CVaR 5% of -358,576 XIREC and a batch-100 5th percentile outcome of -259,614 XIREC. In other words, it captured about **97.4%** of the maximum modeled EV on our frontier while taking only about 30.4% of the max-EV basket's CVaR 5% downside. However, the realized outcome was only 36,929 XIREC, which dropped us to **🏆 11th globally overall** after Round 4.
 
-In retrospect, the main lesson was not that risk control was wrong, but that we likely pushed too hard toward extreme tail protection. Many of the strongest candidate baskets were structurally very similar and mainly differed by hedge intensity, so a milder risk constraint or simpler basket-cleaning rule might have preserved more upside without materially increasing true competition risk.
+In retrospect, we almost certainly over-hedged. The strongest baskets along the efficient frontier were highly correlated and differed mostly in hedge intensity, so a lighter risk constraint would probably have preserved more of the shared positive edge. Given that IMC was likely to evaluate the round using a reasonably representative seed rather than an extreme left-tail path, we think we paid too much to insure against outcomes that were unlikely to determine the final ranking. That trade-off may make sense in real portfolio risk management, but for this competition it likely reduced our upside far more than it improved our true expected result.
 
 <br/>
 
