@@ -1317,20 +1317,84 @@ In retrospect, we almost certainly over-hedged. The strongest baskets along the 
 <br/>
 
 <a id="manual-round-5"></a>
-## Round 5
+## Round 5: Extra! Extra! Read all about it!
 
-Round 5 manual was news trading.
+**The challenge:**
 
-The strongest idea here was comparing:
-- previous years’ news,
-- to current year assets,
-- and mapping similar products across competitions.
+The fifth and final manual round was a one-day news-trading problem on a basket of Ignith goods. We were given a set of Ashflow Alpha headlines and had to choose which products to buy or sell, then hold that portfolio until the next day.
 
-The intuition:
-- similar narratives likely produced similar magnitude moves.
+What made this round difficult was that it was not enough to get the direction right. Realized returns depended partly on how the field positioned around each product, and trading costs rose quadratically with size. So the real problem was not just news interpretation, but deciding which headlines were still underpriced, which were already priced in, and how much size each idea could support after fees.
 
-We are still unsure how much edge this truly provided,
-but it was one of the cleaner structural approaches available.
+**Key mechanics**
+
+- We had a total budget of **1,000,000 XIREC**.
+- We could go **long or short** each product.
+- Realized returns were not fixed; they could shift depending on aggregate participant positioning.
+- Fees increased quadratically with per-product size, so concentration became expensive very quickly.
+- Unused budget expired worthless, but forcing capital into weak ideas could still be worse than leaving some budget unallocated.
+
+**Our strategy**
+
+We approached the round as a fee-aware cross-sectional news portfolio problem. For each headline, we estimated both **direction** and **rough magnitude**, then compared the setup with analogous product archetypes from **previous Prosperity competitions** that used news-driven manual rounds. Those earlier challenges were useful because many superficially dramatic headlines ended up being only modestly tradable once crowd positioning and pricing-in effects were taken into account.
+
+That led us to focus less on whether a headline sounded dramatic and more on whether the implied move was likely to be **large enough to overcome fees**. Since a position of `p%` of budget incurred a fee equal to `p%` of notional, larger positions needed much larger realized moves just to break even. This made sizing just as important as directional accuracy.
+
+At the product level, our reasoning was as follows:
+
+- **Ashes of the Phoenix — SELL 8%**  
+  We expected the product to weaken because the resurfaced sourcing video created public scrutiny and the company's response read as unconvincing. However, we did not expect a collapse: this was a consumer product rather than the company's equity itself, and because the video had resurfaced rather than newly emerged, it was plausible that much of the reputational damage was already known or partly priced in.
+
+- **Magma Ink — BUY 3%**  
+  We thought the launch was mildly positive, but likely not a huge surprise. The merger behind the product had already happened and the release had been heavily advertised, so much of the narrative was probably priced in already. We still leaned long because the turnout looked stronger than expected, suggesting some incremental upside.
+
+- **Volcanic Incense — SELL 5%**  
+  This looked like a classic hype-driven move rather than a strong fundamental repricing. The Whiff Nostralico story made it feel crowded and reflexive, so we preferred fading that enthusiasm rather than chasing it.
+
+- **Lava Cake — SELL 25%**  
+  This was our clearest short. Confirmed lava contamination, halted sales, regulatory review, and lawsuit risk all pointed in the same direction. Unlike some of the softer sentiment stories, this was a direct and immediate negative shock to the product.
+
+- **Pyroflex Cells — SELL 4%**  
+  The removal of the tax cut was a clean negative demand shock. It effectively raised end-user cost and threatened upgrade behavior, so the direction was fairly straightforwardly bearish.
+
+- **Obsidian Cutlery — BUY 20%**  
+  We went long because the story could be read as evidence that the product was so effective it literally damaged its own manufacturing line. That suggested a possible strength or scarcity narrative despite the temporary halt in production. In hindsight, that directional read was not crazy, but we sized it far too aggressively relative to the move we actually got.
+
+- **Thermalite Core — BUY 10%**  
+  This was one of the strongest long signals on the sheet because the article explicitly said demand and usage were coming in **stronger than previous expectations**. That made it feel less likely to be fully priced in and more like a genuine positive surprise.
+
+- **Sulfur Reactor — BUY 3%**  
+  Index inclusion was a clear positive catalyst because it implied forced buying from benchmark-following flows. We kept the size small because the signal was obvious and therefore likely to be crowded.
+
+- **No position in Scoria Paste**  
+  We passed on Scoria Paste because the headline was driven mostly by celebrity-style macro commentary rather than a hard product-specific catalyst. Given the fee schedule, that did not look strong enough to justify capital.
+
+**Final submission**
+
+- **SELL** `8%` **Ashes of the Phoenix**
+- **BUY** `3%` **Magma Ink**
+- **SELL** `5%` **Volcanic Incense**
+- **SELL** `25%` **Lava Cake**
+- **SELL** `4%` **Pyroflex Cells**
+- **BUY** `20%` **Obsidian Cutlery**
+- **BUY** `10%` **Thermalite Core**
+- **BUY** `3%` **Sulfur Reactor**
+
+**Portfolio summary**
+
+- **Budget used:** `78%`
+- **Investment:** `780,000 XIREC`
+- **Fees:** `124,800 XIREC`
+- **Manual trading PnL:** `99,373 XIREC`
+
+**Result**
+
+This final manual challenge generated **99,373 XIREC** and helped us finish the competition strongly, ending **4th globally overall**.
+
+In hindsight, the realized product outcomes were actually quite informative. **Lava Cake** was the trade we nailed most cleanly: the short thesis was correct, the magnitude was large, and the move was easily big enough to justify the position even after a very large fee. **Thermalite Core**, **Pyroflex Cells**, **Sulfur Reactor**, and **Volcanic Incense** were also strong calls, where both direction and magnitude were good enough to survive the fee schedule comfortably.
+
+The weaker outcomes fell into two different buckets. **Ashes of the Phoenix** and **Magma Ink** were likely **directionally correct but too small in magnitude**: the stories moved the products, but not by enough to cover even modest fee drag, which is exactly what we were worried about with partially priced-in news. **Obsidian Cutlery** was the clearest sizing mistake: our bullish interpretation was directionally reasonable, but the realized upside was far smaller than the `20%` allocation required, so fees overwhelmed the edge and turned a positive thesis into a net loss.
+
+The main lesson from Round 5 was that in news trading, being right on direction is only the starting point. What really mattered was identifying which headlines were both underpriced **and** large enough to monetize after convex fees. We did that very well on the strongest fundamental shorts and a few clean longs, but we were too aggressive on at least one medium-conviction idea and not selective enough about how much magnitude was truly available in the more crowded stories.
 
 <br/>
 
