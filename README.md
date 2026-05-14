@@ -1255,7 +1255,7 @@ In practice, we used the official challenge description as a seed prompt and gen
 </tr>
 </table>
 
-We then fed these sampled crowd distributions into our in-house brute-force optimizer. For each candidate Speed value from `0` to `100`, the optimizer estimated the corresponding expected rank-based multiplier against the sampled field, then enumerated every feasible integer `(Research, Scale)` pair satisfying the budget constraint and selected the allocation with the highest expected PnL. In our final decision, we searched for stable optimal parameter "landscapes" and weighted GPT 5.4 and Claude Opus 4.7 distributions most heavily, since they were the flagship public chatbot models at the time.
+We then fed these sampled crowd distributions into our in-house brute-force optimizer. For each candidate Speed value from `0` to `100`, the optimizer estimated the corresponding expected rank-based multiplier against the sampled field, then enumerated every feasible integer `(Research, Scale)` pair satisfying the budget constraint and selected the allocation with the highest expected PnL. In our final decision, we searched for stable optimal parameter "landscapes" and weighed GPT 5.4 and Claude Opus 4.7 distributions most heavily, since they were the flagship public chatbot models at the time.
 
 **Final submission**
 
@@ -1338,7 +1338,7 @@ The harder part was estimating where the field would place its second bid. Just 
 </tr>
 </table>
 
-We then fed these estimated average second-bid distributions into our in-house brute-force optimizer and as we did for round 2's manual challenge, we searched for stable optimal parameter "landscapes" across estimated distributions, weighted flagship models much more heavily. For every feasible integer pair `(b1, b2)`, it computed expected profit under the official reserve-price distribution and applied the penalty whenever `b2` fell below the estimated crowd mean. That turned the problem into a best-response search over the full two-dimensional bid grid.
+We then fed these estimated average second-bid distributions into our in-house brute-force optimizer and, as we did for round 2's manual challenge, searched for stable optimal parameter "landscapes" across estimated distributions, weighing flagship models much more heavily. For every feasible integer pair `(b1, b2)`, it computed expected profit under the official reserve-price distribution and applied the penalty whenever `b2` fell below the estimated crowd mean. That turned the problem into a best-response search over the full two-dimensional bid grid.
 
 The main conclusion was that while the unpenalized optimum sat near the low-`840`s, the cubic downside for underbidding the crowd justified submitting a second bid **slightly above** our estimated field average. We therefore shifted upward from the pure single-agent optimum and chose a more defensive pair.
 
