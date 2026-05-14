@@ -110,7 +110,7 @@ Each round also featured a separate manual challenge involving probabilistic rea
 
 One of our earliest decisions was to make sure we did not rely solely on the native IMC tester.
 
-Instead, we forked and heavily extended Jmerle's <a href="https://github.com/jmerle/imc-prosperity-3-backtester"> backtester</a> and <a href="https://github.com/jmerle/imc-prosperity-3-visualizer">visualizer</a> from Prosperity 3.
+Instead, we forked and heavily extended Jmerle's <a href="https://github.com/jmerle/imc-prosperity-3-backtester"> backtester</a> and <a href="https://github.com/jmerle/imc-prosperity-3-visualizer">visualizer</a> from IMC Prosperity 3.
 
 Having a proper local environment was absolutely essential for us, especially because the round timers were brutal:
 - 72 hours per round during qualifications
@@ -249,7 +249,7 @@ Strategies with absurdly good backtests were usually overfit.
 
 # Wall Mid
 
-One of the most important concepts throughout the competition was what we called the **Wall Mid**, described by the IMC Prosperity 3 second-ranking team the [Frankfurt Hedgehogs](https://github.com/TimoDiehm/imc-prosperity-3).
+One of the most important concepts throughout the competition was what we called the **Wall Mid**, originating from the IMC Prosperity 3 second-ranking team the [Frankfurt Hedgehogs](https://github.com/TimoDiehm/imc-prosperity-3).
 
 The standard midpoint between best bid and best ask was often a terrible estimate of actual fair value.
 
