@@ -249,7 +249,7 @@ Strategies with absurdly good backtests were usually overfit.
 
 # Wall Mid
 
-One of the most important concepts throughout the competition was what we called the **Wall Mid**.
+One of the most important concepts throughout the competition was what we called the **Wall Mid**, described by the IMC Prosperity 3 second-ranking team the [Frankfurt Hedgehogs](https://github.com/TimoDiehm/imc-prosperity-3).
 
 The standard midpoint between best bid and best ask was often a terrible estimate of actual fair value.
 
