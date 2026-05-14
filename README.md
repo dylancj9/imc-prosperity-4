@@ -6,29 +6,39 @@ This write-up shares the strategies, research, and infrastructure that brought u
   <tbody>
     <tr>
       <td align="center" valign="top" width="200px">
-          <img src="Figures/Jasper_pfp.jpg" width="150;" alt="Member"/>
-          <br />
-          <p><b>Jasper van der Ende</b></p>
+        <a href="https://www.linkedin.com/in/jasper-van-der-ende/">
+          <img src="Figures/Jasper_pfp.jpg" width="150" alt="Jasper van der Ende"/>
+        </a>
+        <br />
+        <p><b><a href="https://www.linkedin.com/in/jasper-van-der-ende/">Jasper van der Ende</a></b></p>
       </td>
       <td align="center" valign="top" width="200px">
-          <img src="Figures/Teun_pfp.jpg" width="150;" alt="Member"/>
-          <br />
-          <p><b>Teun Schuur</b></p>
+        <a href="https://www.linkedin.com/in/teun-schuur-1b0b29270/">
+          <img src="Figures/Teun_pfp.jpg" width="150" alt="Teun Schuur"/>
+        </a>
+        <br />
+        <p><b><a href="https://www.linkedin.com/in/teun-schuur-1b0b29270/">Teun Schuur</a></b></p>
       </td>
       <td align="center" valign="top" width="200px">
-          <img src="Figures/Thomas_pfp.jpg" width="150;" alt="Member"/>
-          <br />
-          <p><b>Thomas St Ges</b></p>
+        <a href="https://www.linkedin.com/in/thomas-stges/">
+          <img src="Figures/Thomas_pfp.jpg" width="150" alt="Thomas St Ges"/>
+        </a>
+        <br />
+        <p><b><a href="https://www.linkedin.com/in/thomas-stges/">Thomas St Ges</a></b></p>
       </td>
       <td align="center" valign="top" width="200px">
-          <img src="Figures/Guilhem_pfp.jpg" width="150;" alt="Member"/>
-          <br />
-          <p><b>Guilhem Doat</b></p>
+        <a href="https://www.linkedin.com/in/guilhem-doat-25bb66356/">
+          <img src="Figures/Guilhem_pfp.jpg" width="150" alt="Guilhem Doat"/>
+        </a>
+        <br />
+        <p><b><a href="https://www.linkedin.com/in/guilhem-doat-25bb66356/">Guilhem Doat</a></b></p>
       </td>
       <td align="center" valign="top" width="200px">
-          <img src="Figures/Dylan_pfp.jpg" width="150;" alt="Member"/>
-          <br />
-          <p><b>Dylan Conrad</b></p>
+        <a href="https://www.linkedin.com/in/dylan-c-6164b5323/">
+          <img src="Figures/Dylan_pfp.jpg" width="150" alt="Dylan Conrad"/>
+        </a>
+        <br />
+        <p><b><a href="https://www.linkedin.com/in/dylan-c-6164b5323/">Dylan Conrad</a></b></p>
       </td>
     </tr>
   </tbody>
