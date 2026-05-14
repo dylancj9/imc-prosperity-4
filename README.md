@@ -1261,27 +1261,58 @@ The realized average second bid was `859`, so our second bid ended up slightly b
 
 <br/>
 
-## Round 4
+<a id="manual-round-4"></a>
+## Round 4: Vanilla Just Isn't Exotic Enough
 
-Round 4 manual introduced:
-- spot trading,
-- exotic derivatives,
-- chooser options,
-- binaries,
-- knockouts,
-- and CVaR optimization.
+**The challenge:**
 
-We built:
-- Black-Scholes models for vanillas,
-- Monte Carlo pricers for exotics,
-- and CVaR optimization routines.
+The fourth manual round was a one-shot derivatives portfolio construction problem. We were given a menu of positions on **AETHER_CRYSTAL**: the underlying itself, vanilla calls and puts with 2-week and 3-week expiries, and several exotics, including a chooser option, a binary put, and a knock-out put. Unlike the earlier manual rounds, this was not a bidding or allocation problem. We had to decide which contracts to buy or sell at time zero and hold until expiry.
 
-The biggest lesson:
-> naive expected value optimization produced absurd tail risk.
+What made the round difficult was that pricing was explicitly stochastic and path-dependent. The underlying was simulated on a discrete grid under GBM with annualized volatility of `251%`, and the final score was based on the **average PnL across 100 simulations**. That turned the challenge into a mix of derivative pricing, portfolio construction, and risk management rather than a simple expected-value maximization exercise.
 
-We therefore optimized:
-- conditional value-at-risk,
-- rather than pure mean return.
+**Key mechanics**
+
+- All contracts were written on **AETHER_CRYSTAL**, with spot starting at `50`.
+- Vanilla options existed with **2-week** and **3-week** expiries.
+- A **chooser option** let the holder decide after 2 weeks whether the contract became a call or a put for the final week.
+- A **binary put** paid a fixed amount if the underlying finished below strike.
+- A **knock-out put** became worthless if the underlying ever crossed the barrier before expiry.
+- Positions were entered once at `t = 0` and held to expiry.
+- The official grading metric was **average PnL across 100 simulations**, so basket-level downside mattered just as much as standalone contract mispricing.
+- Barrier events were evaluated on the same discrete simulation steps used by the challenge, not in continuous time.
+- Contract size was fixed at `3000`, so even small pricing errors could create very large swings in PnL.
+
+**Our strategy**
+
+We approached the round in two layers. First, we built fair-value models for every product in the menu. Vanillas were priced with Black-Scholes under the official volatility and time conventions, while the exotics were priced with Monte Carlo simulation on the same discrete grid used by the challenge. This gave us a clean edge estimate for each contract and immediately highlighted which products looked cheap or rich on a standalone basis.
+
+The first lesson, however, was that pure expected-value optimization was not enough. If we simply bought every underpriced contract and sold every overpriced one at full size, the resulting basket carried enormous left-tail risk, especially through short convexity and path-dependent exposures. The highest-EV baskets were often economically correct in expectation but uncomfortable once evaluated under the actual 100-simulation scoring rule.
+
+We therefore moved to a risk-aware portfolio search. Using simulated payoff paths for the full contract set, we evaluated baskets on the same batch-100 basis used by the competition and traced out an expected-value versus CVaR frontier. That made the trade-off explicit: the top of the frontier was relatively flat, so a modest sacrifice in modeled EV could buy a meaningful reduction in downside risk.
+
+![Optimal EV vs CVaR frontier](Figures/round4_optimal_ev_vs_cvar_curve_writeup.png)
+
+We then expanded the optimization universe to include the underlying and all vanilla contracts, even when some had little standalone edge, because they were valuable as static hedges for the exotics. In particular, the chooser option could be replicated exactly by a **3-week at-the-money call plus a 2-week at-the-money put**, so the optimizer could use vanillas to hedge chooser exposure instead of treating it as a purely directional bet. This turned the problem into a basket-construction exercise rather than a simple ranking of individual mispricings.
+
+From there, we iterated between frontier analysis and basket cleaning. The goal was not to find the single most aggressive positive-EV portfolio, but to find a basket whose risk profile still made sense under the competition's averaging rule. The final submission kept the core mispriced positions, but paired the exotic shorts with vanilla hedges and removed some of the worst naked downside.
+
+![Basket outcome distribution](Figures/round4_writeup_basket_distribution.png)
+
+**Final submission**
+
+- **BUY** `22` `AC_50_C` at `12.05`
+- **BUY** `50` `AC_45_P` at `9.10`
+- **BUY** `50` `AC_50_P_2` at `9.75`
+- **BUY** `50` `AC_50_C_2` at `9.75`
+- **SELL** `50` `AC_50_CO` at `22.20`
+- **SELL** `50` `AC_40_BP` at `5.00`
+- **BUY** `500` `AC_45_KO` at `0.175`
+
+**Result**
+
+This round was much tougher for us than the first three. Our simulations still put the final basket's mean PnL at roughly **160,000 XIREC**, but the realized outcome was only **36,929 XIREC**, which was far below the model's central expectation and dropped us to **11th globally overall** after Round 4.
+
+In retrospect, the main lesson was not that risk control was wrong, but that we likely pushed too hard toward extreme tail protection. Many of the strongest candidate baskets were structurally very similar and mainly differed by hedge intensity, so a milder risk constraint or simpler basket-cleaning rule might have preserved more upside without materially increasing true competition risk.
 
 <br/>
 
