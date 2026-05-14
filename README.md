@@ -1388,7 +1388,7 @@ At the product level, our reasoning was as follows:
 
 **Result**
 
-This final manual challenge generated **99,373 XIREC** and helped us finish the competition strongly, ending **4th globally overall**.
+This final manual challenge generated **99,373 XIREC** and helped us finish the competition strongly, ending **🏆 4th globally overall**.
 
 In hindsight, the realized product outcomes were actually quite informative. **Lava Cake** was the trade we nailed most cleanly: the short thesis was correct, the magnitude was large, and the move was easily big enough to justify the position even after a very large fee. **Thermalite Core**, **Pyroflex Cells**, **Sulfur Reactor**, and **Volcanic Incense** were also strong calls, where both direction and magnitude were good enough to survive the fee schedule comfortably.
 
