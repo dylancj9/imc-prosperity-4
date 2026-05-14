@@ -110,7 +110,7 @@ Each round also featured a separate manual challenge involving probabilistic rea
 
 One of our earliest decisions was to make sure we did not rely solely on the native IMC tester.
 
-Instead, we forked and heavily extended Jmerle’s backtester and visualizer for Prosperity 4.
+Instead, we forked and heavily extended <a href="https://github.com/jmerle">Jmerle's</a> <a href="https://github.com/jmerle/imc-prosperity-3-backtester"> backtester</a> and <a href="https://github.com/jmerle/imc-prosperity-3-visualizer">visualizer</a> from Prosperity 3.
 
 Having a proper local environment was absolutely essential for us, especially because the round timers were brutal:
 - 72 hours per round during qualifications
