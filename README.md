@@ -968,7 +968,7 @@ The clearest winners were:
 
 Those were mostly families where either broad market making alone was already strong, or where the extra structure we kept live was at least directionally helpful.
 
-In particular, OXYGEN_SHAKES were actually our main PnL source, which the DaFuck alpha discussed below largely explains.
+In particular, OXYGEN_SHAKES were actually our main PnL source, which the 100-Jump alpha discussed below largely explains.
 
 The weak spots were just as informative:
 - MICROCHIPS lost about 26.8k,
@@ -1037,21 +1037,21 @@ However, it did not end up being nearly as profitable as the cleanest live struc
 
 So although SNACKPACKS still finished strongly positive at about +19.1k, that was more a validation of the simpler final structure than of an elaborate family-arbitrage thesis.
 
-### DaFuck Alpha
+### 100-Jump Alpha
 
-The cleanest standalone microstructure signal was what we internally called the **DaFuck alpha**.
+The cleanest standalone microstructure signal was what we internally called the **100-Jump alpha**.
 
 <table>
 <tr valign="top">
 <td width="100%" align="center">
-  <strong>Figure 13: DaFuck Alpha</strong>
+  <strong>Figure 13: 100-Jump Alpha</strong>
 </td>
 </tr>
 
 <tr valign="top">
 <td width="100%" align="center">
-  <img src="Figures/DaFuck_alpha.png"
-       alt="DaFuck Alpha"
+  <img src="Figures/100-Jump_alpha.png"
+       alt="100-Jump Alpha"
        width="100%" />
 </td>
 </tr>
