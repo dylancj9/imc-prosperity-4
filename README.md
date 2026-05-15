@@ -73,22 +73,22 @@ Our goal with this document is not only to explain what worked, but also:
 
 ![Team Banner](Figures/dashboard.png)
 
-IMC Prosperity 4 (2026) was a global quantitative trading competition consisting of 5 rounds across 2 weeks, with more than 30,000 students participating worldwide across almost 19,000 teams.
+IMC Prosperity 4 (2026) was a global quantitative trading competition held over five rounds across a two-week period, with more than 30,000 university students participating worldwide across nearly 19,000 teams.
 
-Participants developed trading algorithms to maximize profits against simulated markets for securities and commodities populated by various bots and hidden behaviors. Over the course of the competition, new products and mechanics were gradually introduced, forcing teams to constantly adapt their strategies and research process. Cumulatively, there were a total of 64 products traded over the course of the competition, with 50 introduced and active during the final round alone.
+Participants built trading algorithms to maximize profit in simulated securities and commodities markets populated by bots, market frictions, and hidden behavioral patterns. Across the competition, new products, mechanics, and sources of market structure were introduced each round, requiring teams to continuously adapt their strategies, models, and research workflows. In total, 64 products were traded throughout the competition, with 50 active in the final round alone.
 
-The competition touched many areas of quantitative trading and research:
+Each round also included a separate manual trading challenge focused on probabilistic reasoning, optimization, and strategic decision-making in uncertain, adversarial environments.
+
+The competition covered a wide range of topics across quantitative trading and research, including:
 - market making,
 - statistical arbitrage,
 - microstructure analysis,
 - derivatives pricing,
 - signal extraction,
-- event-based trading,
+- event-driven trading,
 - optimization,
 - simulation,
 - and game theory.
-
-Each round also featured a separate manual challenge involving probabilistic reasoning, auctions, optimization, or strategic decision-making.
 
 <br/>
 
