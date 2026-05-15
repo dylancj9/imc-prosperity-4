@@ -529,6 +529,8 @@ The best values were:
 
 This was clearly not perfect, and we later fixed the modeling issue properly in Round 2. But it still outperformed pure buy-and-hold.
 
+Moreover, the empty-book side behavior and corresponding "hidden taker" strategy identified on OSMIUM applied to PEPPER_ROOT as well, reliably generating additional PnL.
+
 Round 1 closed with a cumulative score of **207,308 XIREC**, good for **🏆 8th globally overall**. On the pure algorithmic leaderboard, we scored **119,313 XIREC** and finished **🏆 8th algorithmic**.
 
 <br/>
@@ -574,7 +576,7 @@ Looking back, we should have added a fail-safe:
 - if inventory stayed maxed for long enough,
 - we should have gradually shifted our assumed fair value toward the observed market mid.
 
-There was not any hint that this could've happened though, since in the complete historical data for OSMIUM, it's fair value was always 10,000
+There was not any hint that this could've happened though, since in the complete historical data for OSMIUM, it's fair value was always 10,000.
 PEPPER_ROOT changed more meaningfully.
 
 In Round 1, our dynamic programming model still relied on "adjustment" parameters to compensate for hidden modeling errors.
