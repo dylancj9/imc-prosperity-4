@@ -355,7 +355,7 @@ Round 1 introduced two products, both with max position 80.
 
 ### OSMIUM
 
-The first product introduced was ASH_OSMIUM_OSMIUM, which we simply called OSMIUM.
+The first product introduced was ASH_COATED_OSMIUM, which we simply called OSMIUM.
 
 OSMIUM was essentially:
 - large spread,
