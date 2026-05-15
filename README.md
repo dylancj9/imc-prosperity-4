@@ -577,6 +577,7 @@ Looking back, we should have added a fail-safe:
 - we should have gradually shifted our assumed fair value toward the observed market mid.
 
 There was not any hint that this could've happened though, since in the complete historical data for OSMIUM, it's fair value was always 10,000.
+
 PEPPER_ROOT changed more meaningfully.
 
 In Round 1, our dynamic programming model still relied on "adjustment" parameters to compensate for hidden modeling errors.
