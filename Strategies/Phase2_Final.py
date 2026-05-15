@@ -665,10 +665,10 @@ class EtfTrader:
         return price
 
 
-class DaFuckTrader:
+class JumpTrader:
     ''' Trades the inefficiency that sometimes occurs (Large move Up -> Large move Down -> repeat) '''
 
-    STATE_KEY = "dafuck"
+    STATE_KEY = "jump"
     TICKS_TO_ACTIVATE = 3
     DISABLE_GRACE_TICKS = 600
     MIN_FIRST_MOVE = 60
@@ -725,7 +725,7 @@ class DaFuckTrader:
         symbol_state["disable_return_mid"] = return_mid
 
     def calculate_intents(self):
-        trader_prints = self.prints.setdefault("DAFUCK", {})
+        trader_prints = self.prints.setdefault("JUMP", {})
 
         for symbol, asset in self.assets.items():
             symbol_state = self.get_symbol_state(symbol)
@@ -1624,7 +1624,7 @@ class Trader:
             for product in state.listings.keys()
         }
         etf_traders = [EtfTrader(state, prints, assets, settings, new_data, last_trader_data) for settings in CORRELATIONS]
-        da_fuck_traders = [DaFuckTrader(state, prints, assets, new_data)]
+        da_fuck_traders = [JumpTrader(state, prints, assets, new_data)]
         pebbles_trader = PebblesTrader(state, prints, assets, new_data)
         mm_traders = [
             TranslatorMMTrader(state, prints, assets),
