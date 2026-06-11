@@ -96,7 +96,6 @@ The competition covered a wide range of topics across quantitative trading and r
 
 - [Tools & Infrastructure](#tools--infrastructure)
 - [Wall Mid](#wall-mid)
-- [On Vibe Coding](#on-vibe-coding)
 - [Algorithmic Challenge](#algorithmic-challenge)
   - [Round 1](#round-1)
   - [Round 2](#round-2)
@@ -305,45 +304,6 @@ This produced a significantly cleaner and more predictive estimate of fair value
 </td>
 </tr>
 </table>
-
-<br/>
-
-# On Vibe Coding
-
-We want to be honest about something that rarely makes it into writeups:
-
-A significant portion of our tooling and research was built through what the community now calls **vibe coding**.
-
-Fast, iterative, heavily AI-assisted development became one of the most important tools during the competition.
-
-In a competition like Prosperity, you simply cannot afford to spend:
-- six hours architecting perfect pipelines,
-- writing elegant abstractions,
-- or polishing infrastructure
-
-when there are only 30 hours left in a round.
-
-The correct move is often:
-1. get something working quickly,
-2. validate the idea,
-3. then decide whether it deserves cleanup.
-
-Concretely, this included:
-- rapidly prototyping parsers,
-- building one-off scanners,
-- dynamically extending the dashboard,
-- generating parameter sweep harnesses,
-- and quickly validating statistical ideas.
-
-The key discipline is knowing:
-- when AI-generated code is acceptable,
-- and when every line must be manually verified.
-
-We kept a strict separation:
-- exploratory tooling could be messy,
-- production strategy code had to be understood completely.
-
-Used correctly, vibe coding became an enormous force multiplier.
 
 <br/>
 
@@ -1528,7 +1488,7 @@ The main lesson from Round 5 was that in news trading, being right on direction 
 ## What mattered most?
 
 Probably:
-- structural understanding,
+- structural market understanding,
 - skepticism,
 - and avoiding overfitting.
 
@@ -1538,6 +1498,45 @@ The competition constantly rewarded:
 - robustness,
 - simplicity,
 - and critical thinking.
+
+<br/>
+
+## Did you utilize AI/LLMs during this competition?
+
+As discussed in the manual trading sections, we explicitly leveraged Large Language Model (LLM) simulations for estimating the aggregate behaviors of other players during adversial challenges where our PnL was dependent on the decisions of others. We consider this approach to have been a major competitive advantage.
+
+However, even within the algorithmic trading challenges, we absolutely harnessed the power of AI Agents to massively increase team productivity. Specifically, a decent portion of our tooling and research leveraged what the community now informally calls **vibe coding**.
+
+Fast, iterative, AI-agent-assisted research and development became one of the most important tools during the competition.
+
+In a time-intensive competition like Prosperity, you simply cannot afford to spend:
+- six hours architecting perfect pipelines,
+- writing elegant abstractions,
+- or polishing infrastructure
+
+when there are only 30 hours left in a round.
+
+The correct move is often:
+1. get something working quickly,
+2. validate the idea,
+3. then decide whether it deserves cleanup.
+
+Concretely, this included:
+- rapidly prototyping parsers,
+- building one-off scanners to formulate and test hypotheses,
+- dynamically extending the dashboard,
+- generating parameter sweep harnesses,
+- and quickly validating (or invalidating) statistical ideas.
+
+The key discipline is knowing:
+- when AI-generated code and results are acceptable,
+- and when every line must be manually verified.
+
+We kept a strict separation:
+- exploratory tooling could be messy,
+- production strategy research and code had to be understood completely.
+
+Used correctly, vibe coding and AI Agents became an enormous force multiplier.
 
 <br/>
 
