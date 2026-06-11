@@ -1505,7 +1505,7 @@ The competition constantly rewarded:
 
 As discussed in the manual trading sections, we explicitly leveraged Large Language Model (LLM) simulations for estimating the aggregate behaviors of other players during adversial challenges where our PnL was dependent on the decisions of others. We consider this approach to have been a major competitive advantage.
 
-However, even within the algorithmic trading challenges, we absolutely harnessed the power of AI Agents to massively increase team productivity. Specifically, a decent portion of our tooling and research leveraged what the community now informally calls **vibe coding**.
+However, even within the algorithmic trading challenges, we absolutely harnessed the power of AI agents to massively increase team productivity and accelerate our research process. Specifically, a decent portion of our tooling and research leveraged what the community now informally calls **vibe coding**.
 
 Fast, iterative, AI-agent-assisted research and development became one of the most important tools during the competition.
 
@@ -1536,7 +1536,7 @@ We kept a strict separation:
 - exploratory tooling could be messy,
 - production strategy research and code had to be understood completely.
 
-Used correctly, vibe coding and AI Agents became an enormous force multiplier.
+Used correctly, vibe coding with AI agents became an enormous force multiplier.
 
 <br/>
 
