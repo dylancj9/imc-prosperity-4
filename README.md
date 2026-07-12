@@ -47,7 +47,7 @@ This write-up shares the strategies, research, and infrastructure that brought u
           <img src="Figures/Dylan_pfp.jpg" width="150" alt="Dylan Conrad"/>
         </a>
         <br />
-        <p><b><a href="https://www.linkedin.com/in/dylan-c-6164b5323/">Dylan Conrad</a></b></p>
+        <p><b><a href="https://www.linkedin.com/in/dylanjconrad/">Dylan Conrad</a></b></p>
       </td>
     </tr>
   </tbody>
